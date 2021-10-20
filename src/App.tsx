@@ -1,13 +1,12 @@
 import { Routes, Route } from "react-router-dom";
-import "stoned/dist/index.css";
-import { Button } from "stoned";
+import { Button } from "@material-ui/core";
 import { useState } from "preact/compat";
 
-export function App() {
+export function App(): JSX.Element {
   const [count, setCount] = useState(0);
   return (
     <>
-      <Button size="small" raised={true} color="primary">
+      <Button variant="contained" color="secondary">
         hello world
       </Button>
       <p
@@ -18,7 +17,7 @@ export function App() {
         count: {count}
       </p>
       <Routes>
-        <Route path="/" element={<p>hello</p>} />
+        <Route path="/" element={<p>home</p>} />
         <Route path="/about" element={<p>about</p>} />
         <Route path="/contact" element={<p>contact</p>} />
       </Routes>
