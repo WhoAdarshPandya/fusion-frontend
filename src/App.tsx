@@ -1,26 +1,39 @@
 import { Routes, Route } from "react-router-dom";
-import { Button } from "@material-ui/core";
-import { useState } from "preact/compat";
+import { Paper } from "@material-ui/core";
+import { useDarkMode } from "./hooks";
+import "./App.css";
+import { Home, PrivateRoute } from "./components";
+import { Link } from "react-router-dom";
+import { useAuth } from "./hooks/useAuth";
 
 export function App(): JSX.Element {
-  const [count, setCount] = useState(0);
+  const { themeToggler } = useDarkMode();
+  const { makeUserLogin } = useAuth();
+  console.log(import.meta.env.MODE);
   return (
-    <>
-      <Button variant="contained" color="secondary">
-        hello world
-      </Button>
-      <p
-        onClick={() => {
-          setCount((p) => p + 1);
+    <Paper className="parent">
+      <Paper
+        onDoubleClick={() => {
+          themeToggler();
         }}
+        elevation={7}
+        className="app-container"
       >
-        count: {count}
-      </p>
-      <Routes>
-        <Route path="/" element={<p>home</p>} />
-        <Route path="/about" element={<p>about</p>} />
-        <Route path="/contact" element={<p>contact</p>} />
-      </Routes>
-    </>
+        <Routes>
+          <PrivateRoute path="/" element={<Home />} />
+          <PrivateRoute path="/:tab" element={<Home />} />
+          <Route
+            path="/login"
+            element={
+              <>
+                <p onClick={makeUserLogin}>login</p>
+                <Link to="/chat">click here to go to /chat</Link>
+              </>
+            }
+          />
+          <Route path="/signup" element={<p>signup</p>} />
+        </Routes>
+      </Paper>
+    </Paper>
   );
 }

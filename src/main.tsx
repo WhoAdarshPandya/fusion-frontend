@@ -2,6 +2,8 @@ import { render } from "preact";
 import { App } from "./App";
 import "./index.css";
 import { BrowserRouter } from "react-router-dom";
+import { SnackbarProvider } from "notistack";
+
 import {
   KBarProvider,
   KBarPortal,
@@ -11,6 +13,9 @@ import {
   KBarResults,
   createAction,
 } from "kbar";
+import { StrictMode } from "preact/compat";
+import { DarkModeProvider } from "./contexts/DarkModeContext/DarkModeContext";
+import { AuthContextProvider } from "./contexts/AuthContext";
 
 const searchStyle = {
   padding: "12px 16px",
@@ -65,31 +70,32 @@ const actions = [
     section: "Navigation",
     perform: () => window.open("https://twitter.com/timcchang", "_blank"),
   },
-  createAction({
-    name: "Github",
-    shortcut: ["g", "h"],
-    keywords: "sourcecode",
-    section: "Navigation",
-    perform: () => window.open("https://github.com/timc1/kbar", "_blank"),
-  }),
 ];
 
 render(
-  <KBarProvider actions={actions}>
-    <KBarPortal>
-      <KBarPositioner>
-        <KBarAnimator style={animatorStyle}>
-          <KBarSearch
-            style={searchStyle}
-            placeholder="Type a command or search…"
-          />
-          <KBarResults />
-        </KBarAnimator>
-      </KBarPositioner>
-    </KBarPortal>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </KBarProvider>,
+  <StrictMode>
+    {/* // <KBarProvider actions={actions}>
+  //   <KBarPortal>
+  //     <KBarPositioner>
+  //       <KBarAnimator style={animatorStyle}>
+  //         <KBarSearch
+  //           style={searchStyle}
+  //           placeholder="Type a command or search…"
+  //         />
+  //         <KBarResults />
+  //       </KBarAnimator>
+  //     </KBarPositioner>
+//   </KBarPortal> */}
+    <SnackbarProvider maxSnack={4}>
+      <BrowserRouter>
+        <AuthContextProvider>
+          <DarkModeProvider>
+            <App />
+          </DarkModeProvider>
+        </AuthContextProvider>
+      </BrowserRouter>
+    </SnackbarProvider>
+  </StrictMode>,
+  // </KBarProvider>,
   document.getElementById("app")!
 );
