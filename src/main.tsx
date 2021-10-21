@@ -73,8 +73,7 @@ const actions = [
 ];
 
 render(
-  <StrictMode>
-    {/* // <KBarProvider actions={actions}>
+  // <KBarProvider actions={actions}>
   //   <KBarPortal>
   //     <KBarPositioner>
   //       <KBarAnimator style={animatorStyle}>
@@ -85,17 +84,16 @@ render(
   //         <KBarResults />
   //       </KBarAnimator>
   //     </KBarPositioner>
-//   </KBarPortal> */}
-    <SnackbarProvider maxSnack={4}>
-      <BrowserRouter>
-        <AuthContextProvider>
-          <DarkModeProvider>
-            <App />
-          </DarkModeProvider>
-        </AuthContextProvider>
-      </BrowserRouter>
-    </SnackbarProvider>
-  </StrictMode>,
+  //   </KBarPortal> */}
+  <SnackbarProvider maxSnack={4}>
+    <BrowserRouter>
+      <AuthContextProvider>
+        <DarkModeProvider>
+          <App />
+        </DarkModeProvider>
+      </AuthContextProvider>
+    </BrowserRouter>
+  </SnackbarProvider>,
   // </KBarProvider>,
   document.getElementById("app")!
 );
