@@ -63,7 +63,7 @@ export const Home: FC = (props): JSX.Element => {
         }
         orientation="horizontal"
         variant="fullWidth"
-        fullWidth={true}
+        // fullWidth
         onChange={handleChange}
         style={styles.tabs}
       >
