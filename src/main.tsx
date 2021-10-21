@@ -85,15 +85,15 @@ render(
   //       </KBarAnimator>
   //     </KBarPositioner>
   //   </KBarPortal> */}
-  <SnackbarProvider maxSnack={4}>
-    <BrowserRouter>
-      <AuthContextProvider>
-        <DarkModeProvider>
-          <App />
-        </DarkModeProvider>
-      </AuthContextProvider>
-    </BrowserRouter>
-  </SnackbarProvider>,
+  // <SnackbarProvider maxSnack={4}>
+  <BrowserRouter>
+    <AuthContextProvider>
+      <DarkModeProvider>
+        <App />
+      </DarkModeProvider>
+    </AuthContextProvider>
+  </BrowserRouter>,
+  // </SnackbarProvider>,
   // </KBarProvider>,
   document.getElementById("app")!
 );
