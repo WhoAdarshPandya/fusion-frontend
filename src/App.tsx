@@ -6,9 +6,10 @@ import { Home, PrivateRoute } from "./components";
 import { Link } from "react-router-dom";
 import { useAuth } from "./hooks/useAuth";
 
-export function App(): JSX.Element {
+export function App() {
   const { themeToggler } = useDarkMode();
-  const { makeUserLogin } = useAuth();
+  const { makeUserLogin, isLoggedIn } = useAuth();
+  console.log(isLoggedIn);
   console.log(import.meta.env.MODE);
   return (
     <Paper className="parent">
