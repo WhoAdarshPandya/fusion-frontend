@@ -1,5 +1,6 @@
 import {
   Avatar,
+  Backdrop,
   Divider,
   Drawer,
   IconButton,
@@ -21,12 +22,13 @@ import CloseIcon from "@material-ui/icons/Close";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
 import { ChevronLeft } from "@material-ui/icons";
+import { getBackdropStyle } from "../../utils/stylesHelper";
 
 export const Workspace = () => {
   const { date, wish } = useDate();
   const [open, setOpen] = useState(false);
   const classes = getDrawerStyle();
-  const theme = useTheme();
+  const backdropClasses = getBackdropStyle();
 
   const handleDrawerToggle = () => {
     setOpen((prev) => !prev);
@@ -60,7 +62,13 @@ export const Workspace = () => {
           <p>skljsdflksdlkfjaskfjklsjfkdsj;klff</p>
         </Paper>
       </Paper>
+      <Backdrop
+        open={open}
+        onClick={handleDrawerToggle}
+        className={backdropClasses.backdrop}
+      />
       <Drawer
+        onClose={() => {}}
         variant="permanent"
         className={clsx(classes.drawer, {
           [classes.drawerOpen]: open,

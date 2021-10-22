@@ -70,6 +70,12 @@ export const getDrawerStyle = makeStyles((theme) => ({
   },
 }));
 
+export const getBackdropStyle = makeStyles((theme) => ({
+  backdrop: {
+    zIndex: theme.zIndex.drawer - 1,
+    color: "#fff",
+  },
+}));
 export const SwipeableStyles = {
   tabs: {
     background: "#fff",
