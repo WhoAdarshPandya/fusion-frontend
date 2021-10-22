@@ -19,7 +19,7 @@ import { DrawerList, Searchbar } from "../";
 import { SpeedDial } from "@material-ui/lab";
 import SpeedDialIcon from "@material-ui/lab/SpeedDialIcon";
 
-export const Workspace = () => {
+export const Workspace = (): JSX.Element => {
   const { date, wish } = useDate();
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);

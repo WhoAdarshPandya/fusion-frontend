@@ -14,7 +14,7 @@ export function App() {
   console.log(isTurnedOn);
   console.log(import.meta.env.MODE);
   return (
-    <Paper onClick={toggler} className="parent">
+    <Paper className="parent">
       <Paper
         onDoubleClick={() => {
           themeToggler();
@@ -25,6 +25,7 @@ export function App() {
         <Routes>
           <PrivateRoute path="/" element={<Home />} />
           <PrivateRoute path="/:tab" element={<Home />} />
+          <PrivateRoute path="/discover/:tab" element={<Home />} />
           <Route
             path="/login"
             element={

@@ -2,7 +2,7 @@ import { InputBase } from "@material-ui/core";
 import { getSearchbarStyle } from "../../utils";
 import SearchIcon from "@material-ui/icons/Search";
 
-export const Searchbar = () => {
+export const Searchbar = (): JSX.Element => {
   const classes = getSearchbarStyle();
   return (
     <div className={classes.search}>

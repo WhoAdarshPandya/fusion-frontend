@@ -1,0 +1,8 @@
+.discover-container {
+  height: 100% !important;
+  width: 100% !important;
+  /* background: teal !important; */
+}
+.overflow {
+  overflow: scroll !important;
+}

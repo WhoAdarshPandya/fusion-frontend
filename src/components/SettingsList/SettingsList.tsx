@@ -34,7 +34,7 @@ export const SettingsList = (): JSX.Element => {
         { text: "About The Developer", component: <InfoOutlinedIcon /> },
         { text: "Logout", component: <PowerSettingsNewOutlinedIcon /> },
       ].map(({ text, component }) => (
-        <Paper className="settings-list" variant="outlined">
+        <Paper className="settings-list transition-class" variant="outlined">
           <ListItem button key={text}>
             <ListItemIcon>{component}</ListItemIcon>
             <ListItemText primary={text} />

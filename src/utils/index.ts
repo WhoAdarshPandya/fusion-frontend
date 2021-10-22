@@ -9,3 +9,4 @@ export {
 } from "./stylesHelper";
 export { getFormattedDate } from "./dateAndTimeIHelpers";
 export { getRandomQuote } from "./axiosHelperFunctions";
+export { getUuid } from "./helpers";

@@ -11,9 +11,9 @@ import "./Settings.css";
 
 export const Settings = (): JSX.Element => {
   return (
-    <Paper elevation={0} className="settings-container">
+    <Paper elevation={0} className="settings-container transition-class">
       <br />
-      <Paper variant="outlined" className="profile-row">
+      <Paper variant="outlined" className="profile-row transition-class">
         <div className="profile-container">
           <Badge
             overlap="circular"

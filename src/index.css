@@ -6,6 +6,10 @@
   background: rgba(108, 99, 255, 1);
 }
 
+* {
+  user-select: none;
+}
+
 html,
 body {
   height: 100vh;

@@ -5,3 +5,6 @@ export { DrawerList } from "./DrawerList/DrawerList";
 export { Searchbar } from "./Searchbar/Searchbar";
 export { Settings } from "./Settings/Settings";
 export { SettingsList } from "./SettingsList/SettingsList";
+export { Discover } from "./Discover/Discover";
+export { Request } from "./Request/Request";
+export { AvailableList } from "./AvailableList/AvailableList";

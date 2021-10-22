@@ -1,0 +1,22 @@
+.request-container {
+  width: 100% !important;
+  height: 100% !important;
+  /* background: red !important; */
+}
+
+.searchbar-container {
+  width: 95% !important;
+  margin: auto;
+}
+
+.list-renderer {
+  width: 95% !important;
+  margin: auto;
+}
+
+.remove-horizontal-padding {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  padding-top: 2px !important;
+  padding-bottom: 2px !important;
+}

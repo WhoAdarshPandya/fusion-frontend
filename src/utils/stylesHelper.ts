@@ -9,34 +9,11 @@ export const getTabStyle = makeStyles({
 const drawerWidth = 220;
 
 export const getDrawerStyle = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-  },
-  appBar: {
-    zIndex: theme.zIndex.drawer + 1,
-    transition: theme.transitions.create(["width", "margin"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-  },
-  appBarShift: {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(["width", "margin"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  menuButton: {
-    marginRight: 36,
-  },
-  hide: {
-    display: "none",
-  },
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
     whiteSpace: "nowrap",
+    transition: "all .5s ease-in-out !important",
   },
   drawerOpen: {
     width: drawerWidth,
@@ -83,6 +60,11 @@ export const SwipeableStyles = {
   slide: {
     minHeight: "100%",
     height: "455px",
+    color: "#333",
+  },
+  slideDiscover: {
+    minHeight: "100%",
+    height: "405px",
     color: "#333",
   },
 };
