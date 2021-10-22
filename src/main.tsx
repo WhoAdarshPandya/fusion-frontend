@@ -84,7 +84,7 @@ render(
   //         <KBarResults />
   //       </KBarAnimator>
   //     </KBarPositioner>
-  //   </KBarPortal> */}
+  //   </KBarPortal>
   <SnackbarProvider maxSnack={4}>
     <BrowserRouter>
       <AuthContextProvider>
@@ -93,7 +93,6 @@ render(
         </DarkModeProvider>
       </AuthContextProvider>
     </BrowserRouter>
-    ,
   </SnackbarProvider>,
   // </KBarProvider>,
   document.getElementById("app")!

@@ -6,7 +6,7 @@ export const getTabStyle = makeStyles({
   },
 });
 
-let drawerWidth = 200;
+const drawerWidth = 220;
 
 export const getDrawerStyle = makeStyles((theme) => ({
   root: {
@@ -88,3 +88,17 @@ export const SwipeableStyles = {
 };
 
 export const sanitizer = (value: string) => value.toLocaleLowerCase().trim();
+
+export const getFabStyle = makeStyles((theme) => ({
+  speedDial: {
+    position: "absolute",
+    "&.MuiSpeedDial-directionUp, &.MuiSpeedDial-directionLeft": {
+      bottom: theme.spacing(4),
+      right: theme.spacing(4),
+    },
+    "&.MuiSpeedDial-directionDown, &.MuiSpeedDial-directionRight": {
+      top: theme.spacing(4),
+      left: theme.spacing(4),
+    },
+  },
+}));

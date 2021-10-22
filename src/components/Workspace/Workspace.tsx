@@ -4,29 +4,29 @@ import {
   Divider,
   Drawer,
   IconButton,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
   Paper,
   Typography,
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import { useDate } from "../../hooks";
-import { getDrawerStyle } from "../../utils";
+import { getDrawerStyle, getFabStyle } from "../../utils";
 import "./Workspace.css";
 import clsx from "clsx";
-import { useTheme } from "@material-ui/styles";
-import { useState } from "preact/hooks";
+import { useEffect, useState } from "preact/hooks";
 import CloseIcon from "@material-ui/icons/Close";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
-import { ChevronLeft } from "@material-ui/icons";
-import { getBackdropStyle } from "../../utils/stylesHelper";
+import { getBackdropStyle, getRandomQuote } from "../../utils";
+import { DrawerList } from "../";
+import { SpeedDial } from "@material-ui/lab";
+import SpeedDialIcon from "@material-ui/lab/SpeedDialIcon";
 
 export const Workspace = () => {
   const { date, wish } = useDate();
   const [open, setOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [quoter, setQuoter] = useState<{
+    author: string | undefined;
+    quote: string | undefined;
+  }>({ author: "", quote: "" });
   const classes = getDrawerStyle();
   const backdropClasses = getBackdropStyle();
 
@@ -34,7 +34,16 @@ export const Workspace = () => {
     setOpen((prev) => !prev);
   };
 
-  console.log(date);
+  useEffect(() => {
+    (async () => {
+      const data = await getRandomQuote();
+      if (data.success) {
+        setQuoter({ author: data.author, quote: data.content });
+      }
+      setIsLoading(false);
+    })();
+  }, []);
+
   console.log(wish);
   return (
     <>
@@ -55,12 +64,27 @@ export const Workspace = () => {
           </div>
         </div>
         <Paper elevation={0} className="workspace-body transition-class">
-          <p>skljsdflksdlkfjaskfjklsjfkdsj;klff</p>
-          <p>skljsdflksdlkfjaskfjklsjfkdsj;klff</p>
-          <p>skljsdflksdlkfjaskfjklsjfkdsj;klff</p>
-          <p>skljsdflksdlkfjaskfjklsjfkdsj;klff</p>
-          <p>skljsdflksdlkfjaskfjklsjfkdsj;klff</p>
+          <br />
+          <Typography variant="subtitle2" color="textSecondary">
+            {isLoading ? "loading..." : quoter.quote}
+          </Typography>
+          <Typography
+            variant="subtitle2"
+            color="textSecondary"
+            className="italic"
+          >
+            {isLoading ? "loading..." : ` ~ ${quoter.author}`}
+          </Typography>
         </Paper>
+        <SpeedDial
+          className={getFabStyle().speedDial}
+          ariaLabel="sdf"
+          onClick={() => {
+            alert("hello");
+          }}
+          icon={<SpeedDialIcon />}
+          open={false}
+        />
       </Paper>
       <Backdrop
         open={open}
@@ -68,7 +92,6 @@ export const Workspace = () => {
         className={backdropClasses.backdrop}
       />
       <Drawer
-        onClose={() => {}}
         variant="permanent"
         className={clsx(classes.drawer, {
           [classes.drawerOpen]: open,
@@ -87,27 +110,7 @@ export const Workspace = () => {
           </IconButton>
         </div>
         <Divider />
-        <List>
-          {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {["All mail", "Trash", "Spam"].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
+        <DrawerList handleDrawerToggle={handleDrawerToggle} />
       </Drawer>
     </>
   );

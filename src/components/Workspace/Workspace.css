@@ -25,6 +25,7 @@
 }
 
 .workspace-body {
+  /* background: red !important; */
   padding-left: 20px !important;
   padding-right: 20px !important;
   padding-bottom: 20px !important;
@@ -34,4 +35,11 @@
 
 .transition-class {
   transition: all 0.5s ease-in-out !important;
+}
+.drawer-dark {
+  background: #262626 !important;
+}
+
+.italic {
+  font-style: italic !important;
 }

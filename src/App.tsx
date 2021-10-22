@@ -28,7 +28,7 @@ export function App() {
             element={
               <>
                 <p onClick={makeUserLogin}>login</p>
-                <Link to="/chat">click here to go to /chat</Link>
+                <Link to="/workspace">click here to go to /workspace</Link>
               </>
             }
           />
