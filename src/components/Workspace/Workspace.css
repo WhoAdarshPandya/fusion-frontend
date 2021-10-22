@@ -1,0 +1,37 @@
+.workspace-container {
+  /* overflow: hidden; */
+  height: 100%;
+  width: 100%;
+  /* background: red !important; */
+}
+
+.workspace-row {
+  display: flex;
+  padding: 15px !important;
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+  flex-direction: row !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  height: 50px;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 10px;
+  /* background: purple; */
+}
+
+.muted {
+  color: #bbbfca !important;
+}
+
+.workspace-body {
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+  padding-bottom: 20px !important;
+  margin-left: 80px !important;
+  margin-right: 20px;
+}
+
+.transition-class {
+  transition: all 0.5s ease-in-out !important;
+}

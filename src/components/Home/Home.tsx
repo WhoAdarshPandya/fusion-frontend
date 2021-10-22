@@ -9,6 +9,7 @@ import { useDarkMode } from "../../hooks";
 import "./Home.css";
 import { getTabStyle, SwipeableStyles as styles } from "../../utils";
 import { useParams, useNavigate } from "react-router-dom";
+import { Workspace } from "..";
 
 export const Home: FC = (props): JSX.Element => {
   const { currentTheme } = useDarkMode();
@@ -46,7 +47,9 @@ export const Home: FC = (props): JSX.Element => {
   return (
     <Paper elevation={0} className="slider-container">
       <SwipeableViews index={index} onChangeIndex={handleChange}>
-        <div style={styles.slide}>slide n°1</div>
+        <div style={styles.slide} className="testt">
+          <Workspace />
+        </div>
         <div style={styles.slide}>slide n°2</div>
         <div style={styles.slide}>slide n°3</div>
         <div style={styles.slide}>slide n°4</div>
