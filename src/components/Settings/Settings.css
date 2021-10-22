@@ -1,0 +1,45 @@
+.settings-container {
+  height: 100%;
+  width: 100%;
+  /* background: teal !important; */
+}
+
+.profile-row {
+  display: flex;
+  padding: 15px !important;
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+  flex-direction: row !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  /* background: orangered; */
+  width: 95% !important;
+  height: 80px;
+  margin: 0 auto !important;
+}
+
+.profile-container {
+  /* background: red; */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.user-details {
+  margin-left: 20px !important;
+}
+
+.large-profile {
+  height: 60px !important;
+  width: 60px !important;
+}
+
+.bg-primary {
+  height: 30px;
+  width: 30px;
+  background: #5f72ff !important;
+}
+
+.white {
+  color: white !important;
+}

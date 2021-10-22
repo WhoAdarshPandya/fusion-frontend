@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { Paper } from "@material-ui/core";
-import { useDarkMode } from "./hooks";
+import { useDarkMode, useDigitalWellBeing } from "./hooks";
 import "./App.css";
 import { Home, PrivateRoute } from "./components";
 import { Link } from "react-router-dom";
@@ -9,10 +9,12 @@ import { useAuth } from "./hooks/useAuth";
 export function App() {
   const { themeToggler } = useDarkMode();
   const { makeUserLogin, isLoggedIn } = useAuth();
+  const { isTurnedOn, toggler } = useDigitalWellBeing();
   console.log(isLoggedIn);
+  console.log(isTurnedOn);
   console.log(import.meta.env.MODE);
   return (
-    <Paper className="parent">
+    <Paper onClick={toggler} className="parent">
       <Paper
         onDoubleClick={() => {
           themeToggler();

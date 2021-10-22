@@ -16,6 +16,7 @@ import {
 import { StrictMode } from "preact/compat";
 import { DarkModeProvider } from "./contexts/DarkModeContext/DarkModeContext";
 import { AuthContextProvider } from "./contexts/AuthContext";
+import { WellBeingProvider } from "./contexts/WellBeingContext";
 
 const searchStyle = {
   padding: "12px 16px",
@@ -88,9 +89,11 @@ render(
   <SnackbarProvider maxSnack={4}>
     <BrowserRouter>
       <AuthContextProvider>
-        <DarkModeProvider>
-          <App />
-        </DarkModeProvider>
+        <WellBeingProvider>
+          <DarkModeProvider>
+            <App />
+          </DarkModeProvider>
+        </WellBeingProvider>
       </AuthContextProvider>
     </BrowserRouter>
   </SnackbarProvider>,

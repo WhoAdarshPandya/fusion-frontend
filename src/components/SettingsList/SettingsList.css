@@ -1,0 +1,8 @@
+.settings-list {
+  width: 95%;
+  margin: 15px auto;
+}
+
+li {
+  list-style-type: none !important;
+}
