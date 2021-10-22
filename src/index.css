@@ -2,6 +2,10 @@
   display: none;
 }
 
+::selection {
+  background: rgba(108, 99, 255, 1);
+}
+
 html,
 body {
   height: 100vh;

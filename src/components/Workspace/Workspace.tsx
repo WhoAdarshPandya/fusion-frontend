@@ -15,7 +15,7 @@ import clsx from "clsx";
 import { useEffect, useState } from "preact/hooks";
 import CloseIcon from "@material-ui/icons/Close";
 import { getBackdropStyle, getRandomQuote } from "../../utils";
-import { DrawerList } from "../";
+import { DrawerList, Searchbar } from "../";
 import { SpeedDial } from "@material-ui/lab";
 import SpeedDialIcon from "@material-ui/lab/SpeedDialIcon";
 
@@ -75,6 +75,8 @@ export const Workspace = () => {
           >
             {isLoading ? "loading..." : ` ~ ${quoter.author}`}
           </Typography>
+          <br />
+          <Searchbar />
         </Paper>
         <SpeedDial
           className={getFabStyle().speedDial}

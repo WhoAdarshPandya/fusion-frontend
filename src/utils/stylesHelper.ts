@@ -1,4 +1,4 @@
-import { makeStyles } from "@material-ui/core";
+import { makeStyles, alpha } from "@material-ui/core";
 
 export const getTabStyle = makeStyles({
   indicator: {
@@ -100,5 +100,50 @@ export const getFabStyle = makeStyles((theme) => ({
       top: theme.spacing(4),
       left: theme.spacing(4),
     },
+  },
+}));
+
+export const getSearchbarStyle = makeStyles((theme) => ({
+  search: {
+    position: "relative",
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: alpha(theme.palette.common.black, 0.1),
+    "&:hover": {
+      backgroundColor: alpha(theme.palette.common.black, 0.13),
+    },
+    // marginLeft: 0,
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      marginLeft: theme.spacing(0),
+      width: "auto",
+    },
+  },
+  searchIcon: {
+    padding: theme.spacing(0, 2),
+    color: "#AAAAAA",
+    height: "100%",
+    position: "absolute",
+    pointerEvents: "none",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  inputRoot: {
+    color: "inherit",
+    width: "100%",
+  },
+  inputInput: {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+
+    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    // [theme.breakpoints.up("sm")]: {
+    //   width: "12ch",
+    //   "&:focus": {
+    //     width: "20ch",
+    //   },
+    // },
   },
 }));
