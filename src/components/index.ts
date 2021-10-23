@@ -8,3 +8,6 @@ export { SettingsList } from "./SettingsList/SettingsList";
 export { Discover } from "./Discover/Discover";
 export { Request } from "./Request/Request";
 export { AvailableList } from "./AvailableList/AvailableList";
+export { Chat } from "./Chat/Chat";
+export { ChatBg } from "./ChatBg/ChatBg";
+export { ChatList } from "./ChatList/ChatList";

@@ -18,7 +18,7 @@ import { getBackdropStyle, getRandomQuote } from "../../utils";
 import { DrawerList, Searchbar } from "../";
 import { SpeedDial } from "@material-ui/lab";
 import SpeedDialIcon from "@material-ui/lab/SpeedDialIcon";
-import { useSnackbar } from "notistack";
+// import { useSnackbar } from "notistack";
 
 export const Workspace = (): JSX.Element => {
   const { date, wish } = useDate();
@@ -30,7 +30,7 @@ export const Workspace = (): JSX.Element => {
   }>({ author: "", quote: "" });
   const classes = getDrawerStyle();
   const backdropClasses = getBackdropStyle();
-  const { enqueueSnackbar } = useSnackbar();
+  // const { enqueueSnackbar } = useSnackbar();
 
   const handleDrawerToggle = () => {
     setOpen((prev) => !prev);
@@ -84,7 +84,7 @@ export const Workspace = (): JSX.Element => {
           className={getFabStyle().speedDial}
           ariaLabel="sdf"
           onClick={() => {
-            enqueueSnackbar("hello", { variant: "error" });
+            // enqueueSnackbar("hello", { variant: "error" });
           }}
           icon={<SpeedDialIcon />}
           open={false}
