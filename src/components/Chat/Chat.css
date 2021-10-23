@@ -27,36 +27,3 @@
   display: flex !important;
   flex-direction: column !important;
 }
-
-.chat-info-bar {
-  /* background: orangered !important; */
-  flex: 1.5 !important;
-  border-bottom: 1px solid rgba(204, 204, 204, 0.507) !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: space-between !important;
-  padding-left: 20px;
-  padding-right: 20px;
-}
-
-.chat-main-window {
-  flex: 9.5;
-  background: yellow !important;
-}
-
-.user-name {
-  margin-left: 10px !important;
-  font-weight: 500 !important;
-}
-
-.chat-info-profile {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.chat-info-buttons {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
