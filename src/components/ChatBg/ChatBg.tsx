@@ -16,7 +16,12 @@ export const ChatBg = ({
   ternanaryColor,
 }: ChatBgProps): JSX.Element => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 1500">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      height="100%"
+      width="100%"
+      viewBox="0 0 2000 1500"
+    >
       <rect fill={primaryColor} width="2000" height="1500" />
       <defs>
         <radialGradient id="a" gradientUnits="objectBoundingBox">

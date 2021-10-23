@@ -2,6 +2,7 @@ import { IconButton, InputBase, Paper, Popover } from "@material-ui/core";
 import { EmojiEmotionsRounded, SendRounded } from "@material-ui/icons";
 import { useState } from "preact/hooks";
 import { useDarkMode } from "../../hooks";
+import { ChatBg } from "..";
 import Picker from "emoji-picker-react";
 import "./ChatMainWindow.css";
 

@@ -2,11 +2,17 @@
   flex: 9.5;
   display: flex !important;
   flex-direction: column !important;
+  /* overflow: scroll !important; */
 }
 
 .chat-playground {
-  flex: 11.5;
-  background: chocolate;
+  flex: 11.5 !important;
+  background-image: url("../ChatBg/orange-theme.svg") !important;
+  background-size: cover !important;
+  background-position: center !important;
+  overflow: scroll !important;
+  height: 100% !important;
+  width: 100% !important;
 }
 
 .msg-bar {
