@@ -2,7 +2,6 @@ import { IconButton, InputBase, Paper, Popover } from "@material-ui/core";
 import { EmojiEmotionsRounded, SendRounded } from "@material-ui/icons";
 import { useState } from "preact/hooks";
 import { useDarkMode } from "../../hooks";
-import { ChatBg } from "..";
 import Picker from "emoji-picker-react";
 import "./ChatMainWindow.css";
 
@@ -26,7 +25,7 @@ export const ChatMainWindow = (): JSX.Element => {
 
   return (
     <div className="chat-main-window">
-      <div className="chat-playground"></div>
+      <div className="chat-playground" id="playground"></div>
       <div className="msg-bar">
         <div
           className={

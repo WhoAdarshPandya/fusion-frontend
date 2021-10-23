@@ -7,12 +7,29 @@
 
 .chat-playground {
   flex: 11.5 !important;
-  background-image: url("../ChatBg/orange-theme.svg") !important;
+  background-image: url("../ChatBg/orange-theme.svg");
   background-size: cover !important;
   background-position: center !important;
   overflow: scroll !important;
   height: 100% !important;
   width: 100% !important;
+  transition: all 0.5s ease-in-out !important;
+}
+
+.theme-orange {
+  background-image: url("../ChatBg/orange-theme.svg") !important;
+}
+
+.theme-blue {
+  background-image: url("../ChatBg/blue-theme.svg") !important;
+}
+
+.theme-green {
+  background-image: url("../ChatBg/green-theme.svg") !important;
+}
+
+.theme-dark {
+  background-image: url("../ChatBg/gray-theme.svg") !important;
 }
 
 .msg-bar {

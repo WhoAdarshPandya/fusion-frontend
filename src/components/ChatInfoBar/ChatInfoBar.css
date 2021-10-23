@@ -24,3 +24,38 @@
   align-items: center;
   justify-content: space-between;
 }
+.paper-padding {
+  padding: 10px !important;
+}
+
+.color-circles {
+  display: inline-block;
+  margin: 2px;
+  margin-left: 4px;
+  margin-right: 4px;
+  height: 30px;
+  width: 30px;
+  border-radius: 100%;
+  cursor: pointer;
+}
+
+.themeee5522 {
+  background-image: url("../ChatBg/orange-theme.svg") !important;
+}
+
+.theme1597e5 {
+  background-image: url("../ChatBg/blue-theme.svg") !important;
+}
+
+.theme1c7947 {
+  background-image: url("../ChatBg/green-theme.svg") !important;
+}
+
+.theme1a1b1a {
+  background-image: url("../ChatBg/gray-theme.svg") !important;
+}
+
+.color-circles:hover {
+  transition: 100ms all ease-in-out;
+  transform: scale(1.2);
+}
