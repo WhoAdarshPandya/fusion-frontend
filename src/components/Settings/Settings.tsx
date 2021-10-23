@@ -34,6 +34,7 @@ export const Settings = (): JSX.Element => {
             <Avatar
               src={"https://randomuser.me/api/portraits/men/4.jpg"}
               className="large-profile"
+              alt="user-photo"
             />
           </Badge>
 

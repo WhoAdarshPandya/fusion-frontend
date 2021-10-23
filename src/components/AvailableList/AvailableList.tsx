@@ -78,7 +78,10 @@ export const AvailableList = (): JSX.Element => {
           ].map((user) => (
             <ListItem key={user.id} className="remove-horizontal-padding">
               <ListItemAvatar>
-                <Avatar src="https://randomuser.me/api/portraits/men/4.jpg" />
+                <Avatar
+                  src="https://randomuser.me/api/portraits/men/4.jpg"
+                  alt="user-photo"
+                />
               </ListItemAvatar>
               <ListItemText primary={user.name} secondary={user.username} />
               <ListItemSecondaryAction>

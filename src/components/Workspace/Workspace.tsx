@@ -62,7 +62,10 @@ export const Workspace = (): JSX.Element => {
             </Typography>
           </div>
           <div className="avatar-flex">
-            <Avatar src={"https://randomuser.me/api/portraits/men/4.jpg"} />
+            <Avatar
+              src={"https://randomuser.me/api/portraits/men/4.jpg"}
+              alt="user-photo"
+            />
           </div>
         </div>
         <Paper elevation={0} className="workspace-body transition-class">

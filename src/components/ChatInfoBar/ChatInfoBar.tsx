@@ -36,7 +36,10 @@ export const ChatInfoBar = (): JSX.Element => {
       }
     >
       <div className="chat-info-profile">
-        <Avatar src="https://randomuser.me/api/portraits/men/4.jpg" />
+        <Avatar
+          src="https://randomuser.me/api/portraits/men/4.jpg"
+          alt="user-photo"
+        />
         <Typography className="user-name" variant="body1">
           Sharan Shah
         </Typography>
