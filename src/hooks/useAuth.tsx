@@ -1,6 +1,7 @@
 import { useContext } from "preact/hooks";
 import { AuthContext, LOGOUT, LOGIN } from "../contexts/AuthContext";
 import { setIsLoggedIn, setToken } from "../utils";
+import { useNavigate } from "react-router-dom";
 
 export const useAuth = (): {
   isLoggedIn: boolean;
@@ -9,9 +10,12 @@ export const useAuth = (): {
 } => {
   const { state, dispatch } = useContext(AuthContext);
   const isLoggedIn = state.isLoggedIn;
+  const navigate = useNavigate();
+
   const makeUserLogin = () => {
     setIsLoggedIn(true);
     dispatch({ type: LOGIN });
+    navigate("/workspace");
   };
 
   const makeUserLogout = () => {
