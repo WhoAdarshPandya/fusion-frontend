@@ -32,7 +32,13 @@ export const Signup = () => {
         </div>
       </div>
       <div className="renderer">
-        <Link to="/login">click to login</Link>
+        <div className="login-items-container">
+          <img
+            className="logo"
+            src="https://res.cloudinary.com/dvi7v1uqh/image/upload/v1635440539/svgs/vite_lknxsn.svg"
+            alt="logo"
+          />
+        </div>
       </div>
     </Paper>
   );
