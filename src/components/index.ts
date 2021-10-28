@@ -12,3 +12,5 @@ export { Chat } from "./Chat/Chat";
 export { ChatList } from "./ChatList/ChatList";
 export { ChatInfoBar } from "./ChatInfoBar/ChatInfoBar";
 export { ChatMainWindow } from "./ChatMainWindow/ChatMainWindow";
+export { Login } from "./Login/Login";
+export { Signup } from "./Signup/Signup";

@@ -1,0 +1,78 @@
+.login-container {
+  height: 100% !important;
+  overflow: scroll !important;
+  /* background: red !important; */
+  display: flex !important;
+  width: 100% !important;
+  transition: all 0.5s ease-in-out !important;
+}
+
+.features {
+  flex: 7 !important;
+  display: flex !important;
+  border-right: 1px solid rgba(128, 128, 128, 0.226);
+  flex-direction: column !important;
+}
+
+.renderer {
+  flex: 5 !important;
+  /* background: yellowgreen !important; */
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.login-items-container {
+  height: 85% !important;
+  width: 85% !important;
+  /* background: crimson !important; */
+  display: flex !important;
+  justify-content: space-around !important;
+  align-items: center !important;
+  flex-direction: column !important;
+}
+
+.logo {
+  width: 50% !important;
+}
+
+.feature-svg {
+  flex: 6;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.sqaure {
+  width: 85%;
+  height: 85%;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.reverse {
+  flex-direction: row-reverse !important;
+}
+
+.svg-image {
+  width: 50%;
+  padding: 5px !important;
+}
+
+.feature-svg2 {
+  flex: 6;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.text-feilds {
+  width: 300px !important;
+}
+
+.links {
+  margin-left: 8px !important;
+  align-self: flex-start !important;
+  text-decoration: none;
+}

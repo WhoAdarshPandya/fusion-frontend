@@ -9,5 +9,16 @@ export {
 } from "./stylesHelper";
 export { getFormattedDate } from "./dateAndTimeIHelpers";
 export { getRandomQuote } from "./axiosHelperFunctions";
-export { getUuid } from "./helpers";
+export {
+  getUuid,
+  getBaseUrl,
+  getSocket,
+  socketEmitter,
+  getIsLoggedIn,
+  getToken,
+  setIsLoggedIn,
+  setToken,
+  getLoginSvgs,
+  getSignupSvgs,
+} from "./helpers";
 export { getChatTheme, setChatTheme } from "./getChatTheme";

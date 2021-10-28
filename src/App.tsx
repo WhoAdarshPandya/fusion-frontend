@@ -1,18 +1,17 @@
 import { Routes, Route } from "react-router-dom";
 import { Paper } from "@material-ui/core";
 import { useDarkMode, useDigitalWellBeing } from "./hooks";
-import "./App.css";
-import { Home, PrivateRoute } from "./components";
-import { Link } from "react-router-dom";
+import { Home, Login, PrivateRoute, Signup } from "./components";
 import { useAuth } from "./hooks/useAuth";
+import "./App.css";
 
 export function App() {
   const { themeToggler } = useDarkMode();
   const { makeUserLogin, isLoggedIn } = useAuth();
   const { isTurnedOn, toggler } = useDigitalWellBeing();
+
   console.log(isLoggedIn);
   console.log(isTurnedOn);
-  console.log(import.meta.env.MODE);
   return (
     <Paper className="parent">
       <Paper
@@ -26,16 +25,8 @@ export function App() {
           <PrivateRoute path="/" element={<Home />} />
           <PrivateRoute path="/:tab" element={<Home />} />
           <PrivateRoute path="/discover/:tab" element={<Home />} />
-          <Route
-            path="/login"
-            element={
-              <>
-                <p onClick={makeUserLogin}>login</p>
-                <Link to="/workspace">click here to go to /workspace</Link>
-              </>
-            }
-          />
-          <Route path="/signup" element={<p>signup</p>} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
         </Routes>
       </Paper>
     </Paper>

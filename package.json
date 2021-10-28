@@ -16,7 +16,7 @@
     "emoji-picker-react": "^3.2.4",
     "framer-motion": "^4.1.17",
     "history": "^5.0.1",
-    "kbar": "0.1.0-beta.14",
+    "js-cookie": "^3.0.1",
     "material-ui-image": "^3.3.2",
     "notistack": "^1.0.10",
     "preact": "^10.5.13",
@@ -28,6 +28,7 @@
   "devDependencies": {
     "@preact/preset-vite": "^2.0.0",
     "@types/axios": "^0.14.0",
+    "@types/js-cookie": "^3.0.0",
     "@types/react": "^17.0.0",
     "@types/react-color": "^3.0.5",
     "@types/react-router-dom": "^5.3.1",

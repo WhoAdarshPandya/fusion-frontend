@@ -3,17 +3,6 @@ import { App } from "./App";
 import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import { SnackbarProvider } from "notistack";
-
-import {
-  KBarProvider,
-  KBarPortal,
-  KBarPositioner,
-  KBarAnimator,
-  KBarSearch,
-  KBarResults,
-  createAction,
-} from "kbar";
-import { StrictMode } from "preact/compat";
 import { DarkModeProvider } from "./contexts/DarkModeContext/DarkModeContext";
 import { AuthContextProvider } from "./contexts/AuthContext";
 import { WellBeingProvider } from "./contexts/WellBeingContext";
@@ -82,7 +71,7 @@ render(
   //           style={searchStyle}
   //           placeholder="Type a command or search…"
   //         />
-  //         <KBarResults />
+  //         {/* <KBarResults items={null} onRender={}/> */}
   //       </KBarAnimator>
   //     </KBarPositioner>
   //   </KBarPortal>

@@ -15,7 +15,7 @@ export interface AuthAction {
   type: "LOGIN" | "LOGOUT";
 }
 
-let initialState: AuthState = { isLoggedIn: true };
+let initialState: AuthState = { isLoggedIn: false };
 
 export const AuthContext = createContext<{
   state: AuthState;

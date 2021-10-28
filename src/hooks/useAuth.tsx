@@ -1,5 +1,6 @@
 import { useContext } from "preact/hooks";
 import { AuthContext, LOGOUT, LOGIN } from "../contexts/AuthContext";
+import { setIsLoggedIn, setToken } from "../utils";
 
 export const useAuth = (): {
   isLoggedIn: boolean;
@@ -8,7 +9,15 @@ export const useAuth = (): {
 } => {
   const { state, dispatch } = useContext(AuthContext);
   const isLoggedIn = state.isLoggedIn;
-  const makeUserLogin = () => dispatch({ type: LOGIN });
-  const makeUserLogout = () => dispatch({ type: LOGOUT });
+  const makeUserLogin = () => {
+    setIsLoggedIn(true);
+    dispatch({ type: LOGIN });
+  };
+
+  const makeUserLogout = () => {
+    setToken("");
+    setIsLoggedIn(false);
+    dispatch({ type: LOGOUT });
+  };
   return { isLoggedIn, makeUserLogin, makeUserLogout };
 };
