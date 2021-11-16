@@ -1,0 +1,13 @@
+.align-right {
+  align-self: flex-end !important;
+}
+
+.align-left {
+  align-self: flex-start !important;
+}
+
+.main-avatar {
+  height: 100px !important;
+  width: 100px !important;
+  box-shadow: 1px 2px 12px rgba(0, 0, 0, 0.274);
+}

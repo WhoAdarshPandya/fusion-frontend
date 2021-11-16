@@ -32,6 +32,19 @@
   margin-left: 80px !important;
   margin-right: 20px;
 }
+.workspace-cards {
+  /* width: 80%; */
+  padding-bottom: 25px !important;
+  /* background: pink !important; */
+  margin: auto;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  flex-basis: 33.33%;
+  justify-content: space-between !important;
+  align-items: flex-start !important;
+  align-content: flex-start !important;
+}
 
 .transition-class {
   transition: all 0.5s ease-in-out !important;
@@ -42,4 +55,18 @@
 
 .italic {
   font-style: italic !important;
+}
+
+.workspace-card {
+  /* max-width: 200px !important; */
+  width: 240px !important;
+  margin-bottom: 20px !important;
+}
+
+.dark-card {
+  background: #4b4b4b !important;
+}
+
+.light-card {
+  background: #ebebeb71 !important;
 }

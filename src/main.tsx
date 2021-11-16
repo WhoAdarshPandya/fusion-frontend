@@ -1,91 +1,43 @@
 import { render } from "preact";
 import { App } from "./App";
+import { AppContext } from "./components";
 import "./index.css";
-import { BrowserRouter } from "react-router-dom";
-import { SnackbarProvider } from "notistack";
-import { DarkModeProvider } from "./contexts/DarkModeContext/DarkModeContext";
-import { AuthContextProvider } from "./contexts/AuthContext";
-import { WellBeingProvider } from "./contexts/WellBeingContext";
+import { registerSW } from "virtual:pwa-register";
 
-const searchStyle = {
-  padding: "12px 16px",
-  fontSize: "16px",
-  width: "100%",
-  boxSizing: "border-box" as React.CSSProperties["boxSizing"],
-  outline: "none",
-  border: "none",
-  background: "#fff",
-  color: "var(--foreground)",
-};
-
-const animatorStyle = {
-  maxWidth: "600px",
-  width: "100%",
-  background: "var(--background)",
-  color: "var(--foreground)",
-  borderRadius: "8px",
-  overflow: "hidden",
-  boxShadow: "var(--shadow)",
-};
-
-const actions = [
-  {
-    id: "homeAction",
-    name: "Home",
-    shortcut: ["h"],
-    keywords: "back",
-    section: "Navigation",
-    subtitle: "Subtitles can help add more context.",
-    perform: () => (window.location.pathname = "/"),
+const updateSw = registerSW({
+  onNeedRefresh: () => {
+    alert("refresh");
   },
-  {
-    id: "about",
-    name: "About",
-    shortcut: ["a"],
-    keywords: "about section",
-    perform: () => (window.location.pathname = "about"),
+  onOfflineReady: () => {
+    alert("offline ready");
   },
-  {
-    id: "contact",
-    name: "Contact",
-    shortcut: ["c"],
-    keywords: "email",
-    perform: () => (window.location.pathname = "contact"),
+  onRegisterError: (err: any) => {
+    console.log("error", err);
   },
-  {
-    id: "twitterAction",
-    name: "Twitter",
-    shortcut: ["t"],
-    keywords: "social contact dm",
-    section: "Navigation",
-    perform: () => window.open("https://twitter.com/timcchang", "_blank"),
+  onRegistered: () => {
+    console.log("registered");
   },
-];
+});
 
 render(
-  // <KBarProvider actions={actions}>
-  //   <KBarPortal>
-  //     <KBarPositioner>
-  //       <KBarAnimator style={animatorStyle}>
-  //         <KBarSearch
-  //           style={searchStyle}
-  //           placeholder="Type a command or search…"
-  //         />
-  //         {/* <KBarResults items={null} onRender={}/> */}
-  //       </KBarAnimator>
-  //     </KBarPositioner>
-  //   </KBarPortal>
-  <SnackbarProvider maxSnack={4}>
-    <BrowserRouter>
-      <AuthContextProvider>
-        <WellBeingProvider>
-          <DarkModeProvider>
-            <App />
-          </DarkModeProvider>
-        </WellBeingProvider>
-      </AuthContextProvider>
-    </BrowserRouter>
-  </SnackbarProvider>,
-  // </KBarProvider>,
+  <AppContext>
+    <App />
+  </AppContext>,
   document.getElementById("app")!
 );
+
+// {
+//   /* // <SnackbarProvider maxSnack={4}>
+//   //   <BrowserRouter>
+//   //     <AuthContextProvider>
+//   //       <WellBeingProvider>
+//   //         <DarkModeProvider> */
+// }
+
+// {
+//   /* //         </DarkModeProvider>
+//   //       </WellBeingProvider>
+//   //     </AuthContextProvider>
+//   //   </BrowserRouter>
+//   // </SnackbarProvider > */
+// }

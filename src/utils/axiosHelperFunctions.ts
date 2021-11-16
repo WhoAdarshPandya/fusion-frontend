@@ -1,4 +1,5 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
+import { getBaseUrl } from ".";
 
 interface QuoteResponse {
   id: string;
@@ -34,4 +35,18 @@ export const getRandomQuote = async (): Promise<helperResponse> => {
       send = { success: false, err: JSON.stringify(err) };
     });
   return send;
+};
+
+export const imageUploader = async (formData: any) => {
+  console.log("in function", formData);
+  const resp = await axios
+    .post(
+      `${getBaseUrl()}/api/v1/uploadimage`,
+      {
+        formData,
+      },
+      { headers: { "Content-Type": "multipart/form-data" } }
+    )
+    .then((res) => res.data);
+  return resp;
 };

@@ -8,17 +8,18 @@ export {
   getSearchbarStyle,
 } from "./stylesHelper";
 export { getFormattedDate } from "./dateAndTimeIHelpers";
-export { getRandomQuote } from "./axiosHelperFunctions";
+export { getRandomQuote, imageUploader } from "./axiosHelperFunctions";
 export {
   getUuid,
   getBaseUrl,
-  getSocket,
-  socketEmitter,
+  // getSocket,
+  // socketEmitter,
   getIsLoggedIn,
   getToken,
   setIsLoggedIn,
   setToken,
   getLoginSvgs,
   getSignupSvgs,
+  stringTruncate,
 } from "./helpers";
 export { getChatTheme, setChatTheme } from "./getChatTheme";

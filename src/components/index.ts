@@ -14,3 +14,4 @@ export { ChatInfoBar } from "./ChatInfoBar/ChatInfoBar";
 export { ChatMainWindow } from "./ChatMainWindow/ChatMainWindow";
 export { Login } from "./Login/Login";
 export { Signup } from "./Signup/Signup";
+export { AppContext } from "./AppContext/AppContext";

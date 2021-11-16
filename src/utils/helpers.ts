@@ -11,15 +11,15 @@ export const getBaseUrl = (): string => {
     : 'https"//fusionapi.herokuapp.com';
 };
 
-const socket = io(getBaseUrl());
+// const socket = io(getBaseUrl());
 
-export const getSocket = (): Socket => {
-  return socket;
-};
+// export const getSocket = (): Socket => {
+//   return socket;
+// };
 
-export const socketEmitter = (event: string, data: any): void => {
-  socket.emit(event, data);
-};
+// export const socketEmitter = (event: string, data: any): void => {
+//   socket.emit(event, data);
+// };
 
 export const getToken = (): string | undefined => {
   return Cookies.get("token");
@@ -49,6 +49,10 @@ export const getSignupSvgs = () => {
     "https://res.cloudinary.com/dvi7v1uqh/image/upload/v1635435571/svgs/svg3_cgsxxb.svg",
     "https://res.cloudinary.com/dvi7v1uqh/image/upload/v1635435571/svgs/svg2_ewvqt4.svg",
   ];
+};
+
+export const stringTruncate = (msg: string): string => {
+  return msg.length > 100 ? msg.slice(0, 100).concat("...") : msg;
 };
 
 // socket.on(`AnoReq${this.props.user_id}`, async ({ data }) => {
