@@ -1,17 +1,19 @@
-import { Paper, Tab, Tabs } from "@material-ui/core";
-import { FC, useEffect, useState } from "preact/compat";
+import { useEffect, useState } from "preact/compat";
 import NoteAddIcon from "@material-ui/icons/NoteAdd";
+import Paper from "@material-ui/core/Paper";
+import Tab from "@material-ui/core/Tab";
+import Tabs from "@material-ui/core/Tabs";
 import SettingsIcon from "@material-ui/icons/Settings";
 import ForumIcon from "@material-ui/icons/Forum";
 import GroupAddIcon from "@material-ui/icons/GroupAdd";
 import SwipeableViews from "react-swipeable-views";
 import { useDarkMode } from "../../hooks";
-import "./Home.css";
 import { getTabStyle, SwipeableStyles as styles } from "../../utils";
 import { useParams, useNavigate } from "react-router-dom";
 import { Workspace, Settings, Discover, Chat } from "..";
+import "./Home.css";
 
-export const Home: FC = (): JSX.Element => {
+export const Home = (): JSX.Element => {
   const { currentTheme } = useDarkMode();
   let tabCount = 0;
   const { tab } = useParams();

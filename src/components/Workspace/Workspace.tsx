@@ -3,7 +3,6 @@ import {
   Card,
   CardHeader,
   CardContent,
-  CardActions,
   Backdrop,
   Divider,
   Drawer,
@@ -11,19 +10,19 @@ import {
   Paper,
   Typography,
 } from "@material-ui/core";
-import MenuIcon from "@material-ui/icons/Menu";
 import { useDarkMode, useDate } from "../../hooks";
 import { getDrawerStyle, getFabStyle, stringTruncate } from "../../utils";
-import clsx from "clsx";
 import { useEffect, useState } from "preact/hooks";
-import CloseIcon from "@material-ui/icons/Close";
 import { getBackdropStyle, getRandomQuote } from "../../utils";
 import { DrawerList, Searchbar } from "../";
 import { SpeedDial } from "@material-ui/lab";
+import clsx from "clsx";
+import CloseIcon from "@material-ui/icons/Close";
+import MenuIcon from "@material-ui/icons/Menu";
 import SpeedDialIcon from "@material-ui/lab/SpeedDialIcon";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
+import { Loader, CustomDialog } from "..";
 import "./Workspace.css";
-// import { useSnackbar } from "notistack";
 
 export const Workspace = (): JSX.Element => {
   const { date, wish } = useDate();
@@ -67,6 +66,9 @@ export const Workspace = (): JSX.Element => {
       const data = await getRandomQuote();
       if (data.success) {
         setQuoter({ author: data.author, quote: data.content });
+        console.log(data.content);
+      } else {
+        console.log(data.err);
       }
       setIsLoading(false);
     })();
@@ -75,6 +77,15 @@ export const Workspace = (): JSX.Element => {
   console.log(wish);
   return (
     <>
+      <Loader isOpen={isLoading} />
+      {/* <CustomDialog
+        open={true}
+        onClose={() => {}}
+        content="hello wrold"
+        title="hello ji"
+      >
+        custom
+      </CustomDialog> */}
       <Paper elevation={0} className="workspace-container transition-class">
         {/* row */}
         <div className="workspace-row">

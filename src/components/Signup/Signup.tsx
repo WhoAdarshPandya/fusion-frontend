@@ -13,16 +13,15 @@ import { getBaseUrl, getSignupSvgs, imageUploader } from "../../utils";
 import ArrowRightAltSharpIcon from "@material-ui/icons/ArrowRightAltSharp";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import { useState } from "preact/hooks";
-import "./Signup.css";
-import { useSnackbar } from "notistack";
 import axios from "axios";
+import "./Signup.css";
 
 export const Signup = (): JSX.Element => {
   const arr = getSignupSvgs();
   const [isNext, setIsNext] = useState(false);
   const [profile, setProfile] = useState(null);
   const [imgUrl, setImgUrl] = useState("");
-  const { enqueueSnackbar } = useSnackbar();
+  // const { enqueueSnackbar } = useSnackbar();
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -38,7 +37,7 @@ export const Signup = (): JSX.Element => {
       console.log(e.target.files[0]);
       console.log(profile);
     } else {
-      enqueueSnackbar("provide valid image", { variant: "error" });
+      // enqueueSnackbar("provide valid image", { variant: "error" });
       setProfile(null);
     }
   };
@@ -55,7 +54,7 @@ export const Signup = (): JSX.Element => {
     ) {
       setIsNext(true);
     } else {
-      enqueueSnackbar("one or more fields are empty...", { variant: "error" });
+      // enqueueSnackbar("one or more fields are empty...", { variant: "error" });
       setIsNext(false);
     }
   };
@@ -125,9 +124,9 @@ export const Signup = (): JSX.Element => {
       //   }
       // };
     } else {
-      enqueueSnackbar("it's always a good option to put a profile :)", {
-        variant: "info",
-      });
+      // enqueueSnackbar("it's always a good option to put a profile :)", {
+      //   variant: "info",
+      // });
     }
   };
 

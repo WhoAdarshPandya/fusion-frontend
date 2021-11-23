@@ -5,6 +5,10 @@
   /* overflow: scroll !important; */
 }
 
+.hidden-picker {
+  display: none !important;
+  visibility: hidden !important;
+}
 .chat-playground {
   flex: 11.5 !important;
   background-image: url("../ChatBg/orange-theme.svg");

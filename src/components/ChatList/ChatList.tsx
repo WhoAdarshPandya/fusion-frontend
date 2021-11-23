@@ -61,7 +61,7 @@ export const ChatList = (): JSX.Element => {
           id: getUuid(),
           name: "Ayesha Akhtar",
           username: "@random_muse",
-          url: "hhttps://randomuser.me/api/portraits/women/29.jpg",
+          url: "https://randomuser.me/api/portraits/women/29.jpg",
         },
       ].map((user) => (
         <>

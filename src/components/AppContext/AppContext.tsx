@@ -1,4 +1,3 @@
-import { SnackbarProvider } from "notistack";
 import { Fragment, ReactNode } from "react";
 import { BrowserRouter } from "react-router-dom";
 import { AuthContextProvider } from "../../contexts/AuthContext";
@@ -12,15 +11,13 @@ export const AppContext = ({
 }): JSX.Element => {
   return (
     <Fragment>
-      <SnackbarProvider maxSnack={4}>
-        <BrowserRouter>
-          <AuthContextProvider>
-            <WellBeingProvider>
-              <DarkModeProvider>{children}</DarkModeProvider>
-            </WellBeingProvider>
-          </AuthContextProvider>
-        </BrowserRouter>
-      </SnackbarProvider>
+      <BrowserRouter>
+        <AuthContextProvider>
+          <WellBeingProvider>
+            <DarkModeProvider>{children}</DarkModeProvider>
+          </WellBeingProvider>
+        </AuthContextProvider>
+      </BrowserRouter>
     </Fragment>
   );
 };
