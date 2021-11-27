@@ -18,7 +18,7 @@ export const AvailableList = (): JSX.Element => {
     <Paper elevation={0} className="available-container transition-class">
       <br />
       <div className="searchbar-container ">
-        <Searchbar />
+        <Searchbar onSearch={() => {}} />
       </div>
       <div className="list-renderer">
         <br />

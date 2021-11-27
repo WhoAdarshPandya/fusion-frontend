@@ -11,10 +11,12 @@ import { useDarkMode } from "../../hooks";
 import { getTabStyle, SwipeableStyles as styles } from "../../utils";
 import { useParams, useNavigate } from "react-router-dom";
 import { Workspace, Settings, Discover, Chat } from "..";
+import { useHotkeys } from "react-hotkeys-hook";
 import "./Home.css";
+import "preact/debug";
 
 export const Home = (): JSX.Element => {
-  const { currentTheme } = useDarkMode();
+  const { currentTheme, themeToggler } = useDarkMode();
   let tabCount = 0;
   const { tab } = useParams();
   const navigate = useNavigate();
@@ -35,14 +37,69 @@ export const Home = (): JSX.Element => {
       tab !== "settings"
     ) {
       navigate("/workspace");
+      tabCount = 0;
     }
   });
 
+  // ⚛ experimental
+  // console.log(tabCount);
+  useHotkeys("right", () => {
+    if (tabCount === 3) {
+      tabCount = 0;
+      handleChange(null, tabCount);
+    } else {
+      tabCount += 1;
+      handleChange(null, tabCount);
+    }
+  });
+  useHotkeys("left", () => {
+    if (tabCount === 0) {
+      tabCount = 3;
+      handleChange(null, tabCount);
+    } else {
+      tabCount -= 1;
+      handleChange(null, tabCount);
+    }
+  });
+
+  useHotkeys("shift+w", () => {
+    tabCount = 0;
+    handleChange(null, tabCount);
+  });
+
+  useHotkeys("shift+c", () => {
+    tabCount = 1;
+    handleChange(null, tabCount);
+  });
+
+  useHotkeys("shift+d", () => {
+    tabCount = 2;
+    handleChange(null, tabCount);
+  });
+
+  useHotkeys("shift+s", () => {
+    tabCount = 3;
+    handleChange(null, tabCount);
+  });
+
+  useHotkeys("shift+space", themeToggler);
+  // ⚛ experimental
+
   const handleChange = (ev: any, value: number) => {
-    if (value === 0) navigate("/workspace");
-    else if (value === 1) navigate("/chat");
-    else if (value === 2) navigate("/discover");
-    else if (value === 3) navigate("/settings");
+    if (value === 0) {
+      // these tabCounts are experimental
+      tabCount = 0;
+      navigate("/workspace");
+    } else if (value === 1) {
+      tabCount = 1;
+      navigate("/chat");
+    } else if (value === 2) {
+      tabCount = 2;
+      navigate("/discover");
+    } else if (value === 3) {
+      tabCount = 3;
+      navigate("/settings");
+    }
     setIndex(value);
   };
 

@@ -1,8 +1,5 @@
 import {
   Avatar,
-  Card,
-  CardHeader,
-  CardContent,
   Backdrop,
   Divider,
   Drawer,
@@ -10,7 +7,7 @@ import {
   Paper,
   Typography,
 } from "@material-ui/core";
-import { useDarkMode, useDate } from "../../hooks";
+import { useDate } from "../../hooks";
 import { getDrawerStyle, getFabStyle, stringTruncate } from "../../utils";
 import { useEffect, useState } from "preact/hooks";
 import { getBackdropStyle, getRandomQuote } from "../../utils";
@@ -20,8 +17,8 @@ import clsx from "clsx";
 import CloseIcon from "@material-ui/icons/Close";
 import MenuIcon from "@material-ui/icons/Menu";
 import SpeedDialIcon from "@material-ui/lab/SpeedDialIcon";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
-import { Loader, CustomDialog } from "..";
+import { Loader, CustomDialog, CardComponent } from "..";
+import { useHotkeys } from "react-hotkeys-hook";
 import "./Workspace.css";
 
 export const Workspace = (): JSX.Element => {
@@ -34,29 +31,155 @@ export const Workspace = (): JSX.Element => {
   }>({ author: "", quote: "" });
   const classes = getDrawerStyle();
   const backdropClasses = getBackdropStyle();
-  const { currentTheme } = useDarkMode();
-  const data = [
+  const [data, setData] = useState([
     {
+      card_id: "1",
       title: "call marketer",
       date: "September 14,2016",
       description:
         "discussion around marketing of new product, salary negotiation for new joinee and confirming designation",
+      isPinned: true,
+      color: "lightBlue",
     },
     {
+      card_id: "1",
+      title: "call marketer",
+      date: "September 14,2016",
+      description:
+        "discussion around marketing of new product, salary negotiation for new joinee and confirming designation",
+      isPinned: true,
+      color: "lightRed",
+    },
+    {
+      card_id: "1",
+      title: "call marketer",
+      date: "September 14,2016",
+      description:
+        "discussion around marketing of new product, salary negotiation for new joinee and confirming designation",
+      isPinned: true,
+      color: "lightGreen",
+    },
+    {
+      card_id: "1",
+      title: "call marketer",
+      date: "September 14,2016",
+      description:
+        "discussion around marketing of new product, salary negotiation for new joinee and confirming designation",
+      isPinned: true,
+      color: "lightYellow",
+    },
+    {
+      card_id: "1",
+      title: "call marketer",
+      date: "September 14,2016",
+      description:
+        "discussion around marketing of new product, salary negotiation for new joinee and confirming designation",
+      isPinned: true,
+      color: "",
+    },
+    {
+      card_id: "1",
+      title: "call marketer",
+      date: "September 14,2016",
+      description:
+        "discussion around marketing of new product, salary negotiation for new joinee and confirming designation",
+      isPinned: true,
+      color: "",
+    },
+    {
+      card_id: "1",
       title: "meeting with dev team",
       date: "September 14,2016",
       description:
         "discussion around new product launch and modification around the website. discussion around few bugs and fixes. diwali bonus discussion",
+      isPinned: false,
+      color: "",
     },
     {
+      card_id: "1",
       title: "buy new interior",
       date: "September 14,2016",
       description:
         "search around websites , find affordable interiors. call the known sellers for tender around this. and call it a day",
+      isPinned: false,
+      color: "",
     },
-  ];
-  // const { enqueueSnackbar } = useSnackbar();
-
+  ]);
+  const [todo, setTodo] = useState([
+    {
+      card_id: "1",
+      title: "call marketer",
+      date: "September 14,2016",
+      description:
+        "discussion around marketing of new product, salary negotiation for new joinee and confirming designation",
+      isPinned: true,
+      color: "lightBlue",
+    },
+    {
+      card_id: "1",
+      title: "call marketer",
+      date: "September 14,2016",
+      description:
+        "discussion around marketing of new product, salary negotiation for new joinee and confirming designation",
+      isPinned: true,
+      color: "lightRed",
+    },
+    {
+      card_id: "1",
+      title: "call marketer",
+      date: "September 14,2016",
+      description:
+        "discussion around marketing of new product, salary negotiation for new joinee and confirming designation",
+      isPinned: true,
+      color: "lightGreen",
+    },
+    {
+      card_id: "1",
+      title: "call marketer",
+      date: "September 14,2016",
+      description:
+        "discussion around marketing of new product, salary negotiation for new joinee and confirming designation",
+      isPinned: true,
+      color: "lightYellow",
+    },
+    {
+      card_id: "1",
+      title: "call marketer",
+      date: "September 14,2016",
+      description:
+        "discussion around marketing of new product, salary negotiation for new joinee and confirming designation",
+      isPinned: true,
+      color: "",
+    },
+    {
+      card_id: "1",
+      title: "call marketer",
+      date: "September 14,2016",
+      description:
+        "discussion around marketing of new product, salary negotiation for new joinee and confirming designation",
+      isPinned: true,
+      color: "",
+    },
+    {
+      card_id: "1",
+      title: "meeting with dev team",
+      date: "September 14,2016",
+      description:
+        "discussion around new product launch and modification around the website. discussion around few bugs and fixes. diwali bonus discussion",
+      isPinned: false,
+      color: "",
+    },
+    {
+      card_id: "1",
+      title: "buy new interior",
+      date: "September 14,2016",
+      description:
+        "search around websites , find affordable interiors. call the known sellers for tender around this. and call it a day",
+      isPinned: false,
+      color: "",
+    },
+  ]);
+  const [isSearchOn, setIsSearchOn] = useState(false);
   const handleDrawerToggle = () => {
     setOpen((prev) => !prev);
   };
@@ -74,18 +197,27 @@ export const Workspace = (): JSX.Element => {
     })();
   }, []);
 
+  // ⚛ experimental
+  const onSearch = (search: string) => {
+    if (search === "") {
+      setData(todo);
+    } else {
+      setData(todo);
+      setData((prevTodosData) =>
+        prevTodosData.filter(
+          (item) =>
+            item.title.includes(search) || item.description.includes(search)
+        )
+      );
+    }
+  };
+  // ⚛ experimental
+
   console.log(wish);
   return (
     <>
       <Loader isOpen={isLoading} />
-      {/* <CustomDialog
-        open={true}
-        onClose={() => {}}
-        content="hello wrold"
-        title="hello ji"
-      >
-        custom
-      </CustomDialog> */}
+
       <Paper elevation={0} className="workspace-container transition-class">
         {/* row */}
         <div className="workspace-row">
@@ -120,41 +252,32 @@ export const Workspace = (): JSX.Element => {
             {isLoading ? "loading..." : ` ~ ${quoter.author}`}
           </Typography>
           <br />
-          <Searchbar />
+          <Searchbar onSearch={onSearch} />
+          <br />
+          <Typography variant="body1" color="secondary">
+            Pinned
+          </Typography>
           <br />
           <Paper elevation={0} className="workspace-cards transition-class">
             {data.map((item) => (
-              <Card
-                elevation={1}
-                className={
-                  currentTheme === "light"
-                    ? "workspace-card light-card"
-                    : "workspace-card dark-card"
-                }
-              >
-                <CardHeader
-                  action={
-                    <IconButton aria-label="settings">
-                      <MoreVertIcon fontSize="medium" />
-                    </IconButton>
-                  }
-                  title={
-                    <Typography noWrap variant="body1" color="textPrimary">
-                      {item.title}
-                    </Typography>
-                  }
-                  subheader={
-                    <Typography variant="body2" color="textSecondary">
-                      {item.date}
-                    </Typography>
-                  }
-                />
-                <CardContent>
-                  <Typography variant="body2" color="textSecondary">
-                    {stringTruncate(item.description)}
-                  </Typography>
-                </CardContent>
-              </Card>
+              <>
+                {item.isPinned && (
+                  <CardComponent key={item.card_id} data={item} />
+                )}
+              </>
+            ))}
+          </Paper>
+          <Typography variant="body1" color="primary">
+            Unpinned
+          </Typography>
+          <br />
+          <Paper elevation={0} className="workspace-cards transition-class">
+            {data.map((item) => (
+              <>
+                {!item.isPinned && (
+                  <CardComponent key={item.card_id} data={item} />
+                )}
+              </>
             ))}
           </Paper>
         </Paper>

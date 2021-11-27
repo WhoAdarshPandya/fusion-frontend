@@ -7,6 +7,13 @@ import CodeOutlinedIcon from "@material-ui/icons/CodeOutlined";
 import SortOutlinedIcon from "@material-ui/icons/SortOutlined";
 import PowerSettingsNewOutlinedIcon from "@material-ui/icons/PowerSettingsNewOutlined";
 import { useDarkMode } from "../../hooks";
+import { useState } from "preact/hooks";
+import {
+  AboutDialog,
+  FeatureRequestDialog,
+  FilterDialog,
+  ShortcutDialog,
+} from "..";
 
 interface DrawerListProps {
   handleDrawerToggle: () => void;
@@ -15,36 +22,98 @@ export const DrawerList = ({
   handleDrawerToggle,
 }: DrawerListProps): JSX.Element => {
   const { themeToggler } = useDarkMode();
+  const [isAboutDialogOpen, setIsAboutDialogOpen] = useState(false);
+  const [isShortcutDialogOpen, setIsShortcutDialogOpen] = useState(false);
+  const [isFilterDialogOpen, setIsFilterDialogOpen] = useState(false);
+  const [isFeatureRequestDialogOpen, setIsFeatureRequestDialogOpen] =
+    useState(false);
+  // const [state,setState] = useState<'open'|'close'|''>("")
 
   const beforeHandleDrawer = (text: string) => {
     if (text === "Theme") {
       themeToggler();
     }
+    if (text === "About") {
+      setIsAboutDialogOpen(true);
+    }
+    if (text === "Feature Request") {
+      setIsFeatureRequestDialogOpen(true);
+    }
+    if (text === "Filter") {
+      setIsFilterDialogOpen(true);
+    }
+    if (text === "Shortcuts") {
+      setIsShortcutDialogOpen(true);
+    }
+    if (text === "Logout") {
+    }
+    if (text === "DND") {
+    }
+
     handleDrawerToggle();
   };
 
+  const handleAboutClose = () => {
+    setIsAboutDialogOpen(false);
+  };
+
+  const handleFeatureRequestClose = () => {
+    setIsFeatureRequestDialogOpen(false);
+  };
+
+  const handleShortcutsClose = () => {
+    setIsShortcutDialogOpen(false);
+  };
+
+  const handleFilterClose = () => {
+    setIsFilterDialogOpen(false);
+  };
+
+  const onFilterApplied = (filter: string) => {
+    console.log(filter);
+    handleFilterClose();
+  };
   return (
-    <List>
-      {[
-        { text: "Filter", component: <SortOutlinedIcon /> },
-        { text: "Theme", component: <ColorLensOutlinedIcon /> },
-        { text: "About", component: <InfoOutlinedIcon /> },
-        { text: "Shortcuts", component: <DirectionsWalkOutlinedIcon /> },
-        { text: "Feature Request", component: <CodeOutlinedIcon /> },
-        { text: "Logout", component: <PowerSettingsNewOutlinedIcon /> },
-        { text: "DND", component: <BlockIcon /> },
-      ].map(({ text, component }) => (
-        <ListItem
-          button
-          key={text}
-          onClick={() => {
-            beforeHandleDrawer(text);
-          }}
-        >
-          <ListItemIcon>{component}</ListItemIcon>
-          <ListItemText primary={text} />
-        </ListItem>
-      ))}
-    </List>
+    <>
+      <AboutDialog
+        onClose={handleAboutClose}
+        isAboutDialogOpen={isAboutDialogOpen}
+      />
+      <FeatureRequestDialog
+        onClose={handleFeatureRequestClose}
+        isFeatureRequestDialogOpen={isFeatureRequestDialogOpen}
+      />
+      <FilterDialog
+        onClose={handleFilterClose}
+        isFilterDialogOpen={isFilterDialogOpen}
+        onApply={onFilterApplied}
+      />
+      <ShortcutDialog
+        onClose={handleShortcutsClose}
+        isShortcutDialogOpen={isShortcutDialogOpen}
+      />
+      <List>
+        {[
+          { text: "Filter", component: <SortOutlinedIcon /> },
+          { text: "Theme", component: <ColorLensOutlinedIcon /> },
+          { text: "About", component: <InfoOutlinedIcon /> },
+          { text: "Shortcuts", component: <DirectionsWalkOutlinedIcon /> },
+          { text: "Feature Request", component: <CodeOutlinedIcon /> },
+          { text: "Logout", component: <PowerSettingsNewOutlinedIcon /> },
+          { text: "DND", component: <BlockIcon /> },
+        ].map(({ text, component }) => (
+          <ListItem
+            button
+            key={text}
+            onClick={() => {
+              beforeHandleDrawer(text);
+            }}
+          >
+            <ListItemIcon>{component}</ListItemIcon>
+            <ListItemText primary={text} />
+          </ListItem>
+        ))}
+      </List>
+    </>
   );
 };

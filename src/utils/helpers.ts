@@ -11,15 +11,15 @@ export const getBaseUrl = (): string => {
     : 'https"//fusionapi.herokuapp.com';
 };
 
-const socket = io(getBaseUrl());
+// const socket = io(getBaseUrl());
 
-export const getSocket = (): Socket => {
-  return socket;
-};
+// export const getSocket = (): Socket => {
+//   return socket;
+// };
 
-export const socketEmitter = (event: string, data: any): void => {
-  socket.emit(event, data);
-};
+// export const socketEmitter = (event: string, data: any): void => {
+//   socket.emit(event, data);
+// };
 
 export const getToken = (): string | undefined => {
   return Cookies.get("token");

@@ -1,0 +1,33 @@
+/* conv css */
+.conversation-start {
+  position: relative;
+  width: 100%;
+  margin-bottom: 27px;
+  text-align: center;
+  clear: both !important;
+}
+
+.conversation-start span {
+  font-size: 14px;
+  display: inline-block;
+  color: #fff;
+}
+
+.conversation-start span:before,
+.conversation-start span:after {
+  position: absolute;
+  top: 10px;
+  display: inline-block;
+  width: 35%;
+  height: 1px;
+  content: "";
+  background-color: #e6e6e6;
+}
+
+.conversation-start span:before {
+  left: 0;
+}
+
+.conversation-start span:after {
+  right: 0;
+}

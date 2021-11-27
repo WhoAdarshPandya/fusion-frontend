@@ -1,8 +1,12 @@
+.bottom-ref {
+  clear: both !important;
+}
+
 .chat-main-window {
   flex: 9.5;
   display: flex !important;
   flex-direction: column !important;
-  /* overflow: scroll !important; */
+  overflow: scroll !important;
 }
 
 .hidden-picker {
@@ -10,8 +14,10 @@
   visibility: hidden !important;
 }
 .chat-playground {
-  flex: 11.5 !important;
+  flex: 10.5 !important;
   background-image: url("../ChatBg/orange-theme.svg");
+  /* background-color: rebeccapurple !important; */
+  font-family: Roboto !important;
   background-size: cover !important;
   background-position: center !important;
   overflow: scroll !important;

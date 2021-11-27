@@ -1,0 +1,49 @@
+.menu-padding {
+  padding: 10px !important;
+}
+
+.lightBlue {
+  background: #a8ece7 !important;
+}
+
+.lightBlue-dark {
+  background: #8bf0e959 !important;
+}
+
+.lightGreen {
+  background: #bedbbb !important;
+}
+
+.lightGreen-dark {
+  background: #a8d3a480 !important;
+}
+
+.lightRed {
+  background: #ffbcbc !important;
+}
+
+.lightRed-dark {
+  background: #ffbcbc7c !important;
+}
+
+.lightYellow {
+  background: #fcffa6 !important;
+}
+
+.lightYellow-dark {
+  background: #fcffa68e !important;
+}
+
+.card-time {
+  display: flex !important;
+}
+
+.card-time-text {
+  margin-left: 10px !important;
+  color: rgba(98, 98, 98, 0.699);
+}
+
+.card-time-text-dark {
+  margin-left: 10px !important;
+  color: rgba(255, 255, 255, 0.486) !important;
+}

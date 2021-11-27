@@ -1,0 +1,8 @@
+.shortcut-container {
+  min-width: 700px !important;
+  /* display: flex; */
+}
+
+.width-100 {
+  width: 100% !important;
+}

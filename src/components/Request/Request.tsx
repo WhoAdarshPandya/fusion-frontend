@@ -18,7 +18,7 @@ export const Request = () => {
     <Paper elevation={0} className="request-container transition-class">
       <br />
       <div className="searchbar-container ">
-        <Searchbar />
+        <Searchbar onSearch={() => {}} />
       </div>
       <div className="list-renderer">
         <br />

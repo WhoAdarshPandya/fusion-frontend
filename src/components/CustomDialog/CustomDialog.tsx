@@ -41,6 +41,7 @@ export const CustomDialog = ({
       onClose={onClose}
       open={open}
       scroll="paper"
+      maxWidth="lg"
     >
       <DialogTitle>{title}</DialogTitle>
       <DialogContent>

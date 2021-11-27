@@ -34,14 +34,14 @@
 }
 .workspace-cards {
   /* width: 80%; */
-  padding-bottom: 25px !important;
+  padding-bottom: 20px !important;
   /* background: pink !important; */
-  margin: auto;
+  /* margin: auto; */
   display: flex !important;
   flex-direction: row !important;
   flex-wrap: wrap !important;
-  flex-basis: 33.33%;
-  justify-content: space-between !important;
+  /* flex-basis: 33.33% !important; */
+  /* justify-content: space-between !important; */
   align-items: flex-start !important;
   align-content: flex-start !important;
 }
@@ -60,7 +60,8 @@
 .workspace-card {
   /* max-width: 200px !important; */
   width: 240px !important;
-  margin-bottom: 20px !important;
+  margin-bottom: 10px !important;
+  margin-right: 1.75%;
 }
 
 .dark-card {
@@ -68,5 +69,5 @@
 }
 
 .light-card {
-  background: #ebebeb71 !important;
+  background: #ebebebca !important;
 }
