@@ -11,7 +11,7 @@ import { useDate } from "../../hooks";
 import { getDrawerStyle, getFabStyle, stringTruncate } from "../../utils";
 import { useEffect, useState } from "preact/hooks";
 import { getBackdropStyle, getRandomQuote } from "../../utils";
-import { DrawerList, Searchbar } from "../";
+import { AddTodoDialog, DrawerList, Searchbar } from "../";
 import { SpeedDial } from "@material-ui/lab";
 import clsx from "clsx";
 import CloseIcon from "@material-ui/icons/Close";
@@ -25,6 +25,7 @@ export const Workspace = (): JSX.Element => {
   const { date, wish } = useDate();
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [isAddTodoopen, setIsAddTodoOpen] = useState(false);
   const [quoter, setQuoter] = useState<{
     author: string | undefined;
     quote: string | undefined;
@@ -282,15 +283,25 @@ export const Workspace = (): JSX.Element => {
           </Paper>
         </Paper>
         {/* fab */}
+        {/* experimental */}
+        <AddTodoDialog
+          onSubmit={() => {}}
+          onClose={() => {
+            setIsAddTodoOpen(false);
+          }}
+          isAddTodoDialogOpen={isAddTodoopen}
+        />
         <SpeedDial
           className={getFabStyle().speedDial}
           ariaLabel="sdf"
           onClick={() => {
+            setIsAddTodoOpen((prev) => !prev);
             // enqueueSnackbar("hello", { variant: "error" });
           }}
           icon={<SpeedDialIcon />}
           open={false}
         />
+        {/* fab */}
       </Paper>
       {/* dokcer backdrop */}
       <Backdrop

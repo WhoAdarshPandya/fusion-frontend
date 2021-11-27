@@ -1,0 +1,48 @@
+.add-todo-container {
+  min-width: 700px !important;
+}
+.full-width {
+  width: 100% !important;
+}
+
+.color-dot {
+  display: inline-block;
+  margin-right: 15px !important;
+  height: 25px !important;
+  width: 25px !important;
+  border-radius: 100%;
+  transition: 100ms all ease-in-out;
+  background: rebeccapurple;
+}
+
+.color-dot:hover {
+  transform: scale(1.2);
+}
+
+.clr-one {
+  background: #a8ece7 !important;
+}
+
+.clr-one-light {
+  background: #85e0da !important;
+}
+
+.clr-two-light {
+  background: #97d88f !important;
+}
+
+.clr-three {
+  background: #d89a9a !important;
+}
+
+.clr-three-light {
+  background: #e29090 !important;
+}
+
+.clr-four {
+  background: #fcffa6 !important;
+}
+
+.clr-four-light {
+  background: #e0e474 !important;
+}

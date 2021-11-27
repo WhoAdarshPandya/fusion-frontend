@@ -25,3 +25,4 @@ export { AboutDialog } from "./AboutDialog/AboutDialog";
 export { FeatureRequestDialog } from "./FeatureRequestDialog/FeatureRequestDialog";
 export { FilterDialog } from "./FilterDialog/FilterDialog";
 export { ShortcutDialog } from "./ShortcutDialog/ShortcutDialog";
+export { AddTodoDialog } from "./AddTodoDialog/AddTodoDialog";
