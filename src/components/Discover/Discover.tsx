@@ -3,7 +3,7 @@ import { useState } from "preact/hooks";
 import SwipeableViews from "react-swipeable-views";
 import { AvailableList, Request } from "..";
 import { useDarkMode } from "../../hooks";
-import { SwipeableStyles as styles } from "../../utils";
+import { getTabStyle, SwipeableStyles as styles } from "../../utils";
 import "./Discover.css";
 
 export const Discover = (): JSX.Element => {

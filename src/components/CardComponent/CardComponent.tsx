@@ -13,7 +13,7 @@ import {
 } from "@material-ui/core";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { useState } from "react";
-import { useDarkMode } from "../../hooks";
+import { useDarkMode, useUser } from "../../hooks";
 import { stringTruncate } from "../../utils";
 import EditRoundedIcon from "@material-ui/icons/EditRounded";
 import StarBorderRoundedIcon from "@material-ui/icons/StarBorderRounded";
@@ -22,22 +22,36 @@ import DeleteRoundedIcon from "@material-ui/icons/DeleteRounded";
 import ExitToAppRoundedIcon from "@material-ui/icons/ExitToAppRounded";
 import AccessTimeRoundedIcon from "@material-ui/icons/AccessTimeRounded";
 import "./CardComponent.css";
+import { deleteTodoReq, updateTodoInfo } from "../../utils/";
+import { AddTodoDialog } from "..";
 
 export interface cardData {
   data: {
-    card_id: string;
+    _id: string;
     title: string;
     date: string;
     description: string;
-    isPinned: boolean;
+    isStarred: boolean;
     color: string;
+    time: string;
   };
+  onPinClick: (todo: any, pin: boolean) => void;
+  onDeleteClick: (_id: string) => void;
+  onSubmit: (todo: any, isUpdate: boolean) => void;
 }
 
-export const CardComponent = ({ data: cardItem }: cardData): JSX.Element => {
+export const CardComponent = ({
+  data: cardItem,
+  onDeleteClick,
+  onPinClick,
+  onSubmit,
+}: cardData): JSX.Element => {
+  const { getUserTodoID } = useUser();
   const { currentTheme } = useDarkMode();
   const [optionsPopOver, setOptionsPopOver] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+
   const handleClose = () => {
     setAnchorEl(null);
     setOptionsPopOver(false);
@@ -46,11 +60,59 @@ export const CardComponent = ({ data: cardItem }: cardData): JSX.Element => {
     setOptionsPopOver(true);
     setAnchorEl(event.currentTarget);
   };
+
+  const handlePinClick = async () => {
+    let master_id = getUserTodoID();
+    const data = await updateTodoInfo(
+      master_id,
+      cardItem._id,
+      cardItem.title,
+      cardItem.color,
+      cardItem.description,
+      !cardItem.isStarred,
+      cardItem.time
+    );
+    if (data.success) {
+      console.log(data);
+      onPinClick(cardItem, cardItem.isStarred ? false : true);
+    } else {
+      alert("some error occured");
+    }
+  };
+
+  const handleDeleteClick = async () => {
+    let master_id = getUserTodoID();
+    const data = await deleteTodoReq(master_id, cardItem._id);
+    if (data.success) {
+      console.log(data);
+      onDeleteClick(cardItem._id);
+    } else {
+      alert("some error occured");
+    }
+  };
+
+  const handleExitClick = () => {
+    setAnchorEl(null);
+    setOptionsPopOver(false);
+  };
+
+  const handleEditClick = () => {
+    setIsEditDialogOpen(true);
+  };
+
+  const handleEditClose = () => {
+    setIsEditDialogOpen(false);
+  };
+
+  const handleEditSubmit = (card: any, isUpdate: boolean) => {
+    onSubmit(card, isUpdate);
+    setIsEditDialogOpen(false);
+  };
   return (
     <>
       <Card
         raised
-        key={cardItem.card_id}
+        key={cardItem._id}
         elevation={1}
         className={
           currentTheme === "light"
@@ -93,7 +155,7 @@ export const CardComponent = ({ data: cardItem }: cardData): JSX.Element => {
               }
               variant="body2"
             >
-              {"    05:09 PM"}
+              {cardItem.time}
             </Typography>
           </div>
         </CardContent>
@@ -115,29 +177,35 @@ export const CardComponent = ({ data: cardItem }: cardData): JSX.Element => {
       >
         <Paper elevation={0}>
           <MenuList className="menu-padding">
-            <MenuItem>
+            <MenuItem
+              onClick={() => {
+                handlePinClick();
+              }}
+            >
               <ListItemIcon>
-                {cardItem.isPinned ? (
+                {cardItem.isStarred ? (
                   <StarRoundedIcon fontSize="small" />
                 ) : (
                   <StarBorderRoundedIcon fontSize="small" />
                 )}
               </ListItemIcon>
-              <ListItemText>Pin</ListItemText>
+              <ListItemText>
+                {cardItem.isStarred ? "Unpin" : "Pin"}
+              </ListItemText>
             </MenuItem>
-            <MenuItem>
+            <MenuItem onClick={handleEditClick}>
               <ListItemIcon>
                 <EditRoundedIcon fontSize="small" />
               </ListItemIcon>
               <ListItemText>Edit</ListItemText>
             </MenuItem>
-            <MenuItem>
+            <MenuItem onClick={handleDeleteClick}>
               <ListItemIcon>
                 <DeleteRoundedIcon fontSize="small" />
               </ListItemIcon>
               <ListItemText>Delete</ListItemText>
             </MenuItem>
-            <MenuItem>
+            <MenuItem onClick={handleExitClick}>
               <ListItemIcon>
                 <ExitToAppRoundedIcon fontSize="small" />
               </ListItemIcon>
@@ -146,6 +214,13 @@ export const CardComponent = ({ data: cardItem }: cardData): JSX.Element => {
           </MenuList>
         </Paper>
       </Popover>
+      <AddTodoDialog
+        isAddTodoDialogOpen={isEditDialogOpen}
+        onClose={handleEditClose}
+        onSubmit={handleEditSubmit}
+        isUpdateDialog={true}
+        card={cardItem}
+      />
     </>
   );
 };

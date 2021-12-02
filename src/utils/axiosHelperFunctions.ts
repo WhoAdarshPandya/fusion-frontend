@@ -316,3 +316,120 @@ export const updateUserInfo = async (
     .catch((err) => ({ err: String(err), success: false }));
   return resp;
 };
+
+export const getAllTodosReq = async (
+  id: string
+): Promise<RequestHelperResponse> => {
+  const token = getToken();
+  let resp: RequestHelperResponse = { success: false };
+  await axios
+    .get(`${getBaseUrl()}/api/v1/todos/gettodos/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        "auth-token": token!,
+      },
+    })
+    .then((result) => {
+      resp = { success: true, err: null, result: result.data };
+    })
+    .catch((err) => {
+      resp = { success: false, err };
+      console.log(resp);
+    });
+  return resp;
+};
+
+export const addTodoReq = async (
+  id: string,
+  title: string,
+  date: string,
+  time: string,
+  isStarred: boolean,
+  color: string,
+  description: string
+): Promise<RequestHelperResponse> => {
+  const token = getToken();
+  // const id = getUserId();
+  let resp: RequestHelperResponse = { success: false };
+  resp = await axios
+    .post(
+      `${getBaseUrl()}/api/v1/todos/addtodo`,
+      {
+        id,
+        color,
+        title,
+        description,
+        isStarred,
+        time,
+        date,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "auth-token": token!,
+        },
+      }
+    )
+    .then((result) => {
+      return { success: true, err: null, result };
+    })
+    .catch((err) => ({ err: String(err), success: false }));
+  return resp;
+};
+
+export const deleteTodoReq = async (
+  master_id: string,
+  todo_id: string
+): Promise<RequestHelperResponse> => {
+  const token = getToken();
+  let resp: RequestHelperResponse = { success: false };
+  resp = await axios
+    .get(`${getBaseUrl()}/api/v1/todos/deletetodo/${master_id}/${todo_id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        "auth-token": token!,
+      },
+    })
+    .then((result) => {
+      return { success: true, err: null, result };
+    })
+    .catch((err) => ({ err: String(err), success: false }));
+  return resp;
+};
+
+export const updateTodoInfo = async (
+  todo_id: string,
+  id: string,
+  title: string,
+  color: string,
+  description: string,
+  isStarred: boolean,
+  time: string
+): Promise<RequestHelperResponse> => {
+  const token = getToken();
+  let resp: RequestHelperResponse = { success: false };
+  resp = await axios
+    .post(
+      `${getBaseUrl()}/api/v1/todos/updatetodo`,
+      {
+        todo_id,
+        id,
+        title,
+        color,
+        description,
+        isStarred,
+        time,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "auth-token": token!,
+        },
+      }
+    )
+    .then((result) => {
+      return { success: true, err: null, result };
+    })
+    .catch((err) => ({ err: String(err), success: false }));
+  return resp;
+};

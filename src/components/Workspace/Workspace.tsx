@@ -8,7 +8,12 @@ import {
   Typography,
 } from "@material-ui/core";
 import { useDate, useUser } from "../../hooks";
-import { getDrawerStyle, getFabStyle, stringTruncate } from "../../utils";
+import {
+  getAllTodosReq,
+  getDrawerStyle,
+  getFabStyle,
+  stringTruncate,
+} from "../../utils";
 import { useEffect, useState } from "preact/hooks";
 import { getBackdropStyle, getRandomQuote } from "../../utils";
 import { AddTodoDialog, DrawerList, Searchbar } from "../";
@@ -52,150 +57,26 @@ export const Workspace = (): JSX.Element => {
   const backdropClasses = getBackdropStyle();
   const [data, setData] = useState([
     {
-      card_id: "1",
-      title: "call marketer",
-      date: "September 14,2016",
-      description:
-        "discussion around marketing of new product, salary negotiation for new joinee and confirming designation",
-      isPinned: true,
-      color: "lightBlue",
-    },
-    {
-      card_id: "1",
-      title: "call marketer",
-      date: "September 14,2016",
-      description:
-        "discussion around marketing of new product, salary negotiation for new joinee and confirming designation",
-      isPinned: true,
-      color: "lightRed",
-    },
-    {
-      card_id: "1",
-      title: "call marketer",
-      date: "September 14,2016",
-      description:
-        "discussion around marketing of new product, salary negotiation for new joinee and confirming designation",
-      isPinned: true,
-      color: "lightGreen",
-    },
-    {
-      card_id: "1",
-      title: "call marketer",
-      date: "September 14,2016",
-      description:
-        "discussion around marketing of new product, salary negotiation for new joinee and confirming designation",
-      isPinned: true,
-      color: "lightYellow",
-    },
-    {
-      card_id: "1",
-      title: "call marketer",
-      date: "September 14,2016",
-      description:
-        "discussion around marketing of new product, salary negotiation for new joinee and confirming designation",
-      isPinned: true,
-      color: "",
-    },
-    {
-      card_id: "1",
-      title: "call marketer",
-      date: "September 14,2016",
-      description:
-        "discussion around marketing of new product, salary negotiation for new joinee and confirming designation",
-      isPinned: true,
-      color: "",
-    },
-    {
-      card_id: "1",
-      title: "meeting with dev team",
-      date: "September 14,2016",
-      description:
-        "discussion around new product launch and modification around the website. discussion around few bugs and fixes. diwali bonus discussion",
-      isPinned: false,
-      color: "",
-    },
-    {
-      card_id: "1",
+      _id: "1",
       title: "buy new interior",
       date: "September 14,2016",
       description:
         "search around websites , find affordable interiors. call the known sellers for tender around this. and call it a day",
-      isPinned: false,
+      isStarred: false,
       color: "",
+      time: "05:09",
     },
   ]);
   const [todo, setTodo] = useState([
     {
-      card_id: "1",
-      title: "call marketer",
-      date: "September 14,2016",
-      description:
-        "discussion around marketing of new product, salary negotiation for new joinee and confirming designation",
-      isPinned: true,
-      color: "lightBlue",
-    },
-    {
-      card_id: "1",
-      title: "call marketer",
-      date: "September 14,2016",
-      description:
-        "discussion around marketing of new product, salary negotiation for new joinee and confirming designation",
-      isPinned: true,
-      color: "lightRed",
-    },
-    {
-      card_id: "1",
-      title: "call marketer",
-      date: "September 14,2016",
-      description:
-        "discussion around marketing of new product, salary negotiation for new joinee and confirming designation",
-      isPinned: true,
-      color: "lightGreen",
-    },
-    {
-      card_id: "1",
-      title: "call marketer",
-      date: "September 14,2016",
-      description:
-        "discussion around marketing of new product, salary negotiation for new joinee and confirming designation",
-      isPinned: true,
-      color: "lightYellow",
-    },
-    {
-      card_id: "1",
-      title: "call marketer",
-      date: "September 14,2016",
-      description:
-        "discussion around marketing of new product, salary negotiation for new joinee and confirming designation",
-      isPinned: true,
-      color: "",
-    },
-    {
-      card_id: "1",
-      title: "call marketer",
-      date: "September 14,2016",
-      description:
-        "discussion around marketing of new product, salary negotiation for new joinee and confirming designation",
-      isPinned: true,
-      color: "",
-    },
-    {
-      card_id: "1",
-      title: "meeting with dev team",
-      date: "September 14,2016",
-      description:
-        "discussion around new product launch and modification around the website. discussion around few bugs and fixes. diwali bonus discussion",
-      isPinned: false,
-      color: "",
-    },
-    {
-      card_id: "1",
+      _id: "1",
       title: "buy new interior",
       date: "September 14,2016",
       description:
         "search around websites , find affordable interiors. call the known sellers for tender around this. and call it a day",
-      isPinned: false,
+      isStarred: false,
       color: "",
+      time: "05:05",
     },
   ]);
   // const [isSearchOn, setIsSearchOn] = useState(false);
@@ -234,19 +115,6 @@ export const Workspace = (): JSX.Element => {
           todo_id,
           friend_id,
         } = data.result.data.result[0];
-        console.log(name);
-        console.log(user_name);
-        console.log(user_id);
-        console.log(theme);
-        console.log(joined_at);
-        console.log(notification);
-        console.log(dnd);
-        console.log(todo_id);
-        console.log(friend_id);
-        console.log(chat_id);
-        console.log(request_id);
-        console.log(profile_url);
-        console.log(email);
         setUserData({
           chat_id,
           dnd,
@@ -263,11 +131,21 @@ export const Workspace = (): JSX.Element => {
           user_id,
           user_name,
         });
+        const todoData = await getAllTodosReq(todo_id);
+        if (todoData.success) {
+          console.log(todoData.result.data.result[0].todos);
+          setData(todoData.result.data.result[0].todos);
+          setTodo(todoData.result.data.result[0].todos);
+        } else {
+          console.log(data.err);
+        }
       } else {
         console.log(data);
       }
       setIsLoading(false);
     })();
+
+    (async () => {})();
   }, []);
 
   // ⚛ experimental
@@ -284,7 +162,65 @@ export const Workspace = (): JSX.Element => {
       );
     }
   };
+
+  const handleTodoSubmit = (todo: any, isUpdate: boolean) => {
+    if (!isUpdate) {
+      console.log("helo");
+      setTodo((prevTodo) => [...prevTodo, todo]);
+      setData((prevData) => [...prevData, todo]);
+      setIsAddTodoOpen(false);
+    } else {
+      console.log("finally");
+      setData((prevData) => [
+        ...prevData.map((item) => {
+          if (item._id === todo._id) {
+            console.log("aya");
+            item = todo;
+            console.log(item.isStarred);
+          }
+          return item;
+        }),
+      ]);
+
+      setTodo((prevTodo) => [
+        ...prevTodo.map((item) => {
+          if (item._id === todo._id) {
+            item = todo;
+          }
+          return item;
+        }),
+      ]);
+    }
+  };
   // ⚛ experimental
+
+  const handlePinClick = (todo: any, pin: boolean) => {
+    setData((prevData) => [
+      ...prevData.map((item) => {
+        if (item._id === todo._id) {
+          console.log("aya");
+          item.isStarred = pin;
+          console.log(item.isStarred);
+        }
+        return item;
+      }),
+    ]);
+
+    setTodo((prevTodo) => [
+      ...prevTodo.map((item) => {
+        if (item._id === todo._id) {
+          item.isStarred = pin;
+        }
+        return item;
+      }),
+    ]);
+    console.log(data);
+  };
+
+  const handleDeleteClick = (_id: string) => {
+    setData((data) => data.filter((item) => item._id !== _id));
+    setTodo((todo) => todo.filter((item) => item._id !== _id));
+  };
 
   return (
     <>
@@ -323,37 +259,57 @@ export const Workspace = (): JSX.Element => {
           <br />
           <Searchbar onSearch={onSearch} />
           <br />
-          <Typography variant="body1" color="secondary">
-            Pinned
-          </Typography>
-          <br />
-          <Paper elevation={0} className="workspace-cards transition-class">
-            {data.map((item) => (
-              <>
-                {item.isPinned && (
-                  <CardComponent key={item.card_id} data={item} />
-                )}
-              </>
-            ))}
-          </Paper>
-          <Typography variant="body1" color="primary">
-            Unpinned
-          </Typography>
-          <br />
-          <Paper elevation={0} className="workspace-cards transition-class">
-            {data.map((item) => (
-              <>
-                {!item.isPinned && (
-                  <CardComponent key={item.card_id} data={item} />
-                )}
-              </>
-            ))}
-          </Paper>
+          {data.length === 0 && (
+            <Typography className="muted">yayy empty list!!!</Typography>
+          )}
+          {data.length > 0 && (
+            <>
+              <Typography variant="body1" color="secondary">
+                Pinned
+              </Typography>
+              <br />
+              <Paper elevation={0} className="workspace-cards transition-class">
+                {data.map((item) => (
+                  <>
+                    {item.isStarred && (
+                      <CardComponent
+                        onSubmit={handleTodoSubmit}
+                        onPinClick={handlePinClick}
+                        onDeleteClick={handleDeleteClick}
+                        key={item._id}
+                        data={item}
+                      />
+                    )}
+                  </>
+                ))}
+              </Paper>
+              <Typography variant="body1" color="primary">
+                Unpinned
+              </Typography>
+              <br />
+              <Paper elevation={0} className="workspace-cards transition-class">
+                {data.map((item) => (
+                  <>
+                    {!item.isStarred && (
+                      <CardComponent
+                        onSubmit={handleTodoSubmit}
+                        onPinClick={handlePinClick}
+                        onDeleteClick={handleDeleteClick}
+                        key={item._id}
+                        data={item}
+                      />
+                    )}
+                  </>
+                ))}
+              </Paper>
+            </>
+          )}
+          {/* {data.length > 0 && <></>} */}
         </Paper>
         {/* fab */}
         {/* experimental */}
         <AddTodoDialog
-          onSubmit={() => {}}
+          onSubmit={handleTodoSubmit}
           onClose={() => {
             setIsAddTodoOpen(false);
           }}
