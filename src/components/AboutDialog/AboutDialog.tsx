@@ -1,3 +1,4 @@
+import { Typography } from "@material-ui/core";
 import { CustomDialog } from "..";
 
 interface AboutDialogProps {
@@ -15,8 +16,14 @@ export const AboutDialog = ({
       onOkClick={onClose}
       open={isAboutDialogOpen}
       onClose={onClose}
-      content="lorium"
+      containsContent={false}
       title="About"
-    ></CustomDialog>
+    >
+      <Typography>
+        Fusion was designed by keeping work and social media in mind, i.e a
+        place where you can work and socialize. it's quite helpful for people
+        who are introvert in nature
+      </Typography>
+    </CustomDialog>
   );
 };

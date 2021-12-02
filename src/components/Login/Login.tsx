@@ -1,12 +1,19 @@
 import { Button, Paper, TextField, Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../hooks";
-import { getLoginSvgs } from "../../utils";
-import { useState } from "preact/hooks";
-import { CustomSnackbar } from "..";
+import {
+  getIsLoggedIn,
+  getLoginSvgs,
+  getToken,
+  loginReq,
+  setIsLoggedIn,
+  setToken,
+} from "../../utils";
+import { useState, useEffect } from "preact/hooks";
 // import { Suspense, lazy } from "react";
 import "./Login.css";
-
+import { useSnackbarHelper } from "../../hooks/";
+import { useNavigate } from "react-router-dom";
 // const Button = lazy(() => import("@material-ui/core/Button"));
 // const Paper = lazy(() => import("@material-ui/core/Paper"));
 // const TextField = lazy(() => import("@material-ui/core/TextField"));
@@ -14,24 +21,32 @@ import "./Login.css";
 
 export const Login = (): JSX.Element => {
   const arr = getLoginSvgs();
-  const { makeUserLogin } = useAuth();
-  // const { snackbarInjector } = useSnackbarHelper();
-  // snackbarInjector("success", "login success", false, "5000");
+  const navigate = useNavigate();
+  const { makeUserLogin, makeUserLogout, isLoggedIn } = useAuth();
+  const { snackbarInjector } = useSnackbarHelper();
   // ⚛ experimental
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [open, setOpen] = useState(false);
+
   const handleClose = () => {
     setOpen(false);
   };
+
+  const submitLoginReq = async () => {
+    const resp: any = await loginReq(email, password);
+    console.log(resp);
+    if (resp.success) {
+      makeUserLogin(resp.token, resp.userData.user_id);
+      snackbarInjector("success", resp.msg, false, "5000");
+    } else {
+      setToken("");
+      setIsLoggedIn(false);
+      snackbarInjector("error", resp.msg, false, "5000");
+    }
+  };
   return (
     <Paper elevation={0} className="login-container">
-      <CustomSnackbar
-        open={open}
-        key={String(new Date())}
-        onClose={handleClose}
-        action={true}
-        severity="error"
-        message="custom action loda lasuun"
-      />
       <div className="features" onClick={() => setOpen(true)}>
         <div className="feature-svg">
           <div className="sqaure">
@@ -64,15 +79,21 @@ export const Login = (): JSX.Element => {
             alt="logo"
           />
           <TextField
-            value=""
+            value={email}
+            onChange={(e: any) => {
+              setEmail(e.target.value);
+            }}
             variant="outlined"
             label="Email"
             className="text-feilds"
           />
 
           <TextField
+            onChange={(e: any) => {
+              setPassword(e.target.value);
+            }}
             type="password"
-            value=""
+            value={password}
             variant="outlined"
             label="Password"
             className="text-feilds"
@@ -80,7 +101,8 @@ export const Login = (): JSX.Element => {
 
           <Button
             onClick={() => {
-              makeUserLogin();
+              submitLoginReq();
+              // makeUserLogin();
             }}
             variant="contained"
             color="primary"

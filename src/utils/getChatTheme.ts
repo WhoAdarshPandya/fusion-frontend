@@ -1,6 +1,8 @@
-let chatTheme = "theme-orange";
+import Cookies from "js-cookie";
 
 export const setChatTheme = (color: string) => {
+  let chatTheme = "theme-orange";
+  console.log(color);
   // chatTheme = color;
   if (color === "#ee5522") {
     chatTheme = "theme-orange";
@@ -14,6 +16,7 @@ export const setChatTheme = (color: string) => {
   if (color === "#1a1b1a") {
     chatTheme = "theme-dark";
   }
+  Cookies.set("theme", chatTheme);
   document
     .getElementById("playground")
     ?.classList.remove(
@@ -25,4 +28,5 @@ export const setChatTheme = (color: string) => {
   document.getElementById("playground")?.classList.add(chatTheme)!;
 };
 
-export const getChatTheme = () => chatTheme;
+export const getChatTheme = () =>
+  Cookies.get("theme") === undefined ? "theme-orange" : Cookies.get("theme");

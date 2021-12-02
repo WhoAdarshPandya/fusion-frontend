@@ -8,7 +8,7 @@ export const getBaseUrl = (): string => {
   const mode = import.meta.env.MODE;
   return mode === "development"
     ? "http://localhost:2002"
-    : 'https"//fusionapi.herokuapp.com';
+    : "https://fusionapi.herokuapp.com";
 };
 
 // const socket = io(getBaseUrl());
@@ -25,12 +25,20 @@ export const getToken = (): string | undefined => {
   return Cookies.get("token");
 };
 
+export const getUserId = (): string | undefined => {
+  return Cookies.get("user_id");
+};
+
 export const setToken = (token: string): void => {
   Cookies.set("token", token);
 };
 
 export const setIsLoggedIn = (isLoggedIn: boolean): void => {
   Cookies.set("isLoggedIn", String(isLoggedIn));
+};
+
+export const setUserId = (user_id: string) => {
+  Cookies.set("user_id", user_id);
 };
 
 export const getIsLoggedIn = (): string | undefined => {

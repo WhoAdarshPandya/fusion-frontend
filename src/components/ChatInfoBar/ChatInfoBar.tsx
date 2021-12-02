@@ -7,17 +7,20 @@ import {
 } from "@material-ui/core";
 import PaletteIcon from "@material-ui/icons/Palette";
 import OfflineBoltIcon from "@material-ui/icons/OfflineBolt";
-import { useDarkMode } from "../../hooks";
-import { useState } from "preact/hooks";
+import { useDarkMode, useUser } from "../../hooks";
+import { useEffect, useState } from "preact/hooks";
 import { CirclePicker } from "react-color";
 import "./ChatInfoBar.css";
-import { setChatTheme } from "../../utils";
+import { getChatTheme, setChatTheme } from "../../utils";
 
 export const ChatInfoBar = (): JSX.Element => {
   const { currentTheme } = useDarkMode();
   const [themePopOver, setThemePopOver] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
-
+  const { getUserTheme } = useUser();
+  useEffect(() => {
+    setChatTheme(getChatTheme()!);
+  }, []);
   const handleClose = () => {
     setAnchorEl(null);
     setThemePopOver(false);

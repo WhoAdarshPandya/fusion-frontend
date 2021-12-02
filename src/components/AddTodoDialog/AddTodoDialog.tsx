@@ -1,4 +1,9 @@
-import { IconButton, InputAdornment, TextField } from "@material-ui/core";
+import {
+  IconButton,
+  InputAdornment,
+  TextField,
+  Tooltip,
+} from "@material-ui/core";
 import { CustomDialog } from "..";
 import StarBorderRoundedIcon from "@material-ui/icons/StarBorderRounded";
 import StarRoundedIcon from "@material-ui/icons/StarRounded";
@@ -48,19 +53,21 @@ export const AddTodoDialog = ({
           // className="text-feilds"
           InputProps={{
             endAdornment: (
-              <InputAdornment position="end">
-                <IconButton
-                  onClick={() => {
-                    setIsPinned((prevIsPinned) => !prevIsPinned);
-                  }}
-                >
-                  {isPinned ? (
-                    <StarRoundedIcon color="primary" />
-                  ) : (
-                    <StarBorderRoundedIcon />
-                  )}
-                </IconButton>
-              </InputAdornment>
+              <Tooltip title={isPinned ? "unpin" : "pin"}>
+                <InputAdornment position="end">
+                  <IconButton
+                    onClick={() => {
+                      setIsPinned((prevIsPinned) => !prevIsPinned);
+                    }}
+                  >
+                    {isPinned ? (
+                      <StarRoundedIcon color="primary" />
+                    ) : (
+                      <StarBorderRoundedIcon />
+                    )}
+                  </IconButton>
+                </InputAdornment>
+              </Tooltip>
             ),
           }}
         />
@@ -74,11 +81,10 @@ export const AddTodoDialog = ({
           variant="outlined"
           label="Description"
           className="full-width"
-          // className="text-feilds"
         />
         <br />
         <br />
-        {/*colors  */}
+        {/* colors */}
         <div
           className={`color-dot clr-one${
             currentTheme === "light" ? "-light" : ""

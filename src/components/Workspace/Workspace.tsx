@@ -7,7 +7,7 @@ import {
   Paper,
   Typography,
 } from "@material-ui/core";
-import { useDate } from "../../hooks";
+import { useDate, useUser } from "../../hooks";
 import { getDrawerStyle, getFabStyle, stringTruncate } from "../../utils";
 import { useEffect, useState } from "preact/hooks";
 import { getBackdropStyle, getRandomQuote } from "../../utils";
@@ -17,12 +17,30 @@ import clsx from "clsx";
 import CloseIcon from "@material-ui/icons/Close";
 import MenuIcon from "@material-ui/icons/Menu";
 import SpeedDialIcon from "@material-ui/lab/SpeedDialIcon";
-import { Loader, CustomDialog, CardComponent } from "..";
+import { Loader, CardComponent } from "..";
 import { useHotkeys } from "react-hotkeys-hook";
 import "./Workspace.css";
+import { getUserData } from "../../utils/";
 
 export const Workspace = (): JSX.Element => {
-  const { date, wish } = useDate();
+  const { date } = useDate();
+  const {
+    setUserData,
+    getUserData: getUserDataHook,
+    getUserChatID,
+    getUserDndStatus,
+    getUserEmail,
+    getUserFriendID,
+    getUserID,
+    getUserJoinedAt,
+    getUserName,
+    getUserNotificationStatus,
+    getUserProfileUrl,
+    getUserRequestID,
+    getUserTheme,
+    getUserTodoID,
+    getUserUserName,
+  } = useUser();
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isAddTodoopen, setIsAddTodoOpen] = useState(false);
@@ -180,7 +198,7 @@ export const Workspace = (): JSX.Element => {
       color: "",
     },
   ]);
-  const [isSearchOn, setIsSearchOn] = useState(false);
+  // const [isSearchOn, setIsSearchOn] = useState(false);
   const handleDrawerToggle = () => {
     setOpen((prev) => !prev);
   };
@@ -193,6 +211,60 @@ export const Workspace = (): JSX.Element => {
         console.log(data.content);
       } else {
         console.log(data.err);
+      }
+      setIsLoading(false);
+    })();
+
+    (async () => {
+      const data = await getUserData();
+      if (data.success) {
+        console.log(data.result.data.result[0]);
+        const {
+          name,
+          user_name,
+          user_id,
+          chat_id,
+          dnd,
+          joined_at,
+          theme,
+          email,
+          notification,
+          profile_url,
+          request_id,
+          todo_id,
+          friend_id,
+        } = data.result.data.result[0];
+        console.log(name);
+        console.log(user_name);
+        console.log(user_id);
+        console.log(theme);
+        console.log(joined_at);
+        console.log(notification);
+        console.log(dnd);
+        console.log(todo_id);
+        console.log(friend_id);
+        console.log(chat_id);
+        console.log(request_id);
+        console.log(profile_url);
+        console.log(email);
+        setUserData({
+          chat_id,
+          dnd,
+          email,
+          friend_id,
+          joined_at,
+          name,
+          notification,
+          password: "",
+          profile_url,
+          request_id,
+          theme,
+          todo_id,
+          user_id,
+          user_name,
+        });
+      } else {
+        console.log(data);
       }
       setIsLoading(false);
     })();
@@ -214,7 +286,6 @@ export const Workspace = (): JSX.Element => {
   };
   // ⚛ experimental
 
-  console.log(wish);
   return (
     <>
       <Loader isOpen={isLoading} />
@@ -233,10 +304,7 @@ export const Workspace = (): JSX.Element => {
             </Typography>
           </div>
           <div className="avatar-flex">
-            <Avatar
-              src={"https://randomuser.me/api/portraits/men/4.jpg"}
-              alt="user-photo"
-            />
+            <Avatar src={getUserProfileUrl()} alt="user-photo" />
           </div>
         </div>
         {/* quote */}
@@ -295,6 +363,20 @@ export const Workspace = (): JSX.Element => {
           className={getFabStyle().speedDial}
           ariaLabel="sdf"
           onClick={() => {
+            console.log(getUserDataHook());
+            // console.log(getUserChatID());
+            // console.log(getUserDndStatus());
+            // console.log(getUserNotificationStatus());
+            // console.log(getUserRequestID());
+            // console.log(getUserTodoID());
+            // console.log(getUserFriendID());
+            // console.log(getUserID());
+            // console.log(getUserTheme());
+            // console.log(getUserJoinedAt());
+            // console.log(getUserName());
+            // console.log(getUserUserName());
+            // console.log(getUserEmail());
+            // console.log(getUserProfileUrl());
             setIsAddTodoOpen((prev) => !prev);
             // enqueueSnackbar("hello", { variant: "error" });
           }}

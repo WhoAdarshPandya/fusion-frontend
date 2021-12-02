@@ -9,15 +9,19 @@ import {
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
-import { getBaseUrl, getSignupSvgs, imageUploader } from "../../utils";
+import { getSignupSvgs, imageUploader, signupUserReq } from "../../utils";
 import ArrowRightAltSharpIcon from "@material-ui/icons/ArrowRightAltSharp";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import { useState } from "preact/hooks";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useSnackbarHelper } from "../../hooks";
+import { Loader } from "..";
 import "./Signup.css";
 
 export const Signup = (): JSX.Element => {
   const arr = getSignupSvgs();
+  const { snackbarInjector } = useSnackbarHelper();
+  const navigate = useNavigate();
   const [isNext, setIsNext] = useState(false);
   const [profile, setProfile] = useState(null);
   const [imgUrl, setImgUrl] = useState("");
@@ -60,78 +64,63 @@ export const Signup = (): JSX.Element => {
   };
 
   const handleSubmit = async () => {
-    let mailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    // let mailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if (profile) {
-      setIsLoading(true);
       const formData = new FormData();
       formData.append("ProfileImage", profile);
-      // console.log("before", formData);
+      // ⚛ experimental
       // const data = await imageUploader(formData);
       // console.log(data);
-      await axios
-        .post(`http://localhost:2002/api/v1/uploadimage`, formData, {
-          headers: { "Content-Type": "multipart/form-data" },
-        })
-        .then((res) => {
-          console.log(res.data);
-        });
-      // firebase
-      //     if (
-      //       name !== "" &&
-      //       email !== "" &&
-      //       username !== "" &&
-      //       pass !== "" &&
-      //       cpass !== ""
-      //     ) {
-      //       // ? check mail
-      //       if (mailRegex.test(email)) {
-      //         if (pass === cpass) {
-      //           // ! api call
-      //           let data = await SignupApiCall({
-      //             name: name.trim().toLowerCase(),
-      //             email: email.trim().toLowerCase(),
-      //             user_name: username.trim().toLowerCase(),
-      //             password: pass,
-      //             profile: getImageDownloadUrl(),
-      //           });
-
-      //           // ?debug
-      //           console.log(data);
-      //           if (data.success) {
-      //             enqueueSnackbar("Signup Successful", { variant: "success" });
-      //             // navigate('/login')
-      //           } else {
-      //             enqueueSnackbar(data.msg, { variant: "error" });
-      //           }
-      //         } else {
-      //           enqueueSnackbar(
-      //             "please provide same password in password and confirm password",
-      //             { variant: "error" }
-      //           );
-      //         }
-      //       } else {
-      //         enqueueSnackbar("please provide valid mail", {
-      //           variant: "error",
-      //         });
-      //       }
-      //     } else {
-      //       enqueueSnackbar("one or more fields are empty...", {
-      //         variant: "error",
-      //       });
-      //     }
-      //   } else {
-      //     enqueueSnackbar("profile upload error", { variant: "error" });
-      //   }
-      // };
+      // ⚛ experimental
+      if (
+        password !== "" &&
+        confirm_password !== "" &&
+        password !== null &&
+        confirm_password !== null
+      ) {
+        if (password === confirm_password) {
+          // setIsLoading(true);
+          const data = await imageUploader(formData);
+          if (data.success) {
+            const url = data.result.url;
+            console.log(data.result);
+            const resData = await signupUserReq(
+              name,
+              username,
+              url,
+              password,
+              email
+            );
+            if (resData.result.success) {
+              snackbarInjector("success", "signup success", false, "5000");
+              navigate("/login");
+            } else {
+              console.log(resData.result);
+              snackbarInjector("error", resData.result.msg!, false, "5000");
+            }
+            // setIsLoading(false);
+          } else {
+            snackbarInjector("error", data.err!, false, "5000");
+          }
+        } else {
+          snackbarInjector("error", "passwords must be same", false, "5000");
+        }
+      } else {
+        snackbarInjector("error", "passwords must not be empty", false, "5000");
+      }
     } else {
-      // enqueueSnackbar("it's always a good option to put a profile :)", {
-      //   variant: "info",
-      // });
+      snackbarInjector(
+        "info",
+        "it's always a good option to put a profile :)",
+        false,
+        "5000"
+      );
     }
   };
 
   return (
     <Paper elevation={0} className="login-container">
+      <Loader isOpen={isLoading} />
       <div className="features">
         <div className="feature-svg">
           <div className="sqaure reverse">

@@ -8,7 +8,20 @@ export {
   getSearchbarStyle,
 } from "./stylesHelper";
 export { getFormattedDate } from "./dateAndTimeIHelpers";
-export { getRandomQuote, imageUploader } from "./axiosHelperFunctions";
+export {
+  getRandomQuote,
+  imageUploader,
+  loginReq,
+  getUserData,
+  updateUserDndReq,
+  updateUserNotificationReq,
+  signupUserReq,
+  updatePasswordReq,
+  deleteAccountReq,
+  updateUserProfile,
+  updateUserInfo,
+} from "./axiosHelperFunctions";
+export type { User, RequestHelperResponse } from "./axiosHelperFunctions";
 export {
   getUuid,
   getBaseUrl,
@@ -21,5 +34,7 @@ export {
   getLoginSvgs,
   getSignupSvgs,
   stringTruncate,
+  getUserId,
+  setUserId,
 } from "./helpers";
 export { getChatTheme, setChatTheme } from "./getChatTheme";

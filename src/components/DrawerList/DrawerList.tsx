@@ -6,7 +6,7 @@ import ColorLensOutlinedIcon from "@material-ui/icons/ColorLensOutlined";
 import CodeOutlinedIcon from "@material-ui/icons/CodeOutlined";
 import SortOutlinedIcon from "@material-ui/icons/SortOutlined";
 import PowerSettingsNewOutlinedIcon from "@material-ui/icons/PowerSettingsNewOutlined";
-import { useDarkMode } from "../../hooks";
+import { useAuth, useDarkMode, useUser } from "../../hooks";
 import { useState } from "preact/hooks";
 import {
   AboutDialog,
@@ -14,6 +14,7 @@ import {
   FilterDialog,
   ShortcutDialog,
 } from "..";
+import { updateUserDndReq } from "../../utils";
 
 interface DrawerListProps {
   handleDrawerToggle: () => void;
@@ -22,6 +23,8 @@ export const DrawerList = ({
   handleDrawerToggle,
 }: DrawerListProps): JSX.Element => {
   const { themeToggler } = useDarkMode();
+  const { makeUserLogout } = useAuth();
+  const { getUserDndStatus, setUserDnd } = useUser();
   const [isAboutDialogOpen, setIsAboutDialogOpen] = useState(false);
   const [isShortcutDialogOpen, setIsShortcutDialogOpen] = useState(false);
   const [isFilterDialogOpen, setIsFilterDialogOpen] = useState(false);
@@ -29,7 +32,7 @@ export const DrawerList = ({
     useState(false);
   // const [state,setState] = useState<'open'|'close'|''>("")
 
-  const beforeHandleDrawer = (text: string) => {
+  const beforeHandleDrawer = async (text: string) => {
     if (text === "Theme") {
       themeToggler();
     }
@@ -46,8 +49,16 @@ export const DrawerList = ({
       setIsShortcutDialogOpen(true);
     }
     if (text === "Logout") {
+      makeUserLogout();
     }
     if (text === "DND") {
+      const data = await updateUserDndReq(!getUserDndStatus());
+      if (data.success) {
+        console.log(data.result);
+        setUserDnd(!getUserDndStatus());
+      } else {
+        console.log(data.err);
+      }
     }
 
     handleDrawerToggle();
