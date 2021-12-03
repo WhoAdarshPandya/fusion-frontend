@@ -8,82 +8,93 @@ import {
   ListItemSecondaryAction,
   ListItemText,
 } from "@material-ui/core";
-import { getUuid } from "../../utils";
+import { useEffect, useState } from "preact/hooks";
+import { Loader } from "..";
+import { useSnackbarHelper, useUser } from "../../hooks";
+import { getAllFriends, getSocket, getUuid } from "../../utils";
 import "./ChatList.css";
 
-export const ChatList = (): JSX.Element => {
+interface ChatlistProps {
+  onChatClick: (user: any) => void;
+}
+
+export const ChatList = ({ onChatClick }: ChatlistProps): JSX.Element => {
+  const [friends, setFriends] = useState([
+    {
+      _id: "",
+      user_id: "",
+      friendship_id: "",
+      date: "",
+      time: "",
+      name: "",
+      user_name: "",
+      user_profile: "",
+    },
+  ]);
+  const [isLoading, setIsLoading] = useState(true);
+  const { getUserFriendID } = useUser();
+  const { snackbarInjector } = useSnackbarHelper();
+  const getUserFriends = async () => {
+    const id = getUserFriendID();
+    const data = await getAllFriends(String(id));
+    console.log(data);
+    if (data.success) {
+      if (data.result.data) {
+        console.log(data);
+        setFriends(data.result.data.result);
+        onChatClick(friends[0]);
+      } else {
+        setFriends([]);
+      }
+      // console.log(data.result.data.result, "succ");
+    } else {
+      alert("error occured. [t102]");
+    }
+    setIsLoading(false);
+  };
+  const id = getUserFriendID();
+
+  useEffect(() => {
+    (async () => {
+      await getUserFriends();
+    })();
+    getSocket().on("updateFriends", async () => {
+      await getUserFriends();
+    });
+  }, [id]);
+
+  const handleUserForChat = (user: any) => {
+    onChatClick(user);
+  };
   return (
-    <List style={{ paddingTop: 0 }}>
-      {[
-        {
-          id: getUuid(),
-          name: "Sharan Shah",
-          username: "@sharan_works",
-          url: "https://randomuser.me/api/portraits/men/68.jpg",
-        },
-        {
-          id: getUuid(),
-          name: "Jill Bhat",
-          username: "@mr.redcarpet",
-          url: "https://randomuser.me/api/portraits/men/3.jpg",
-        },
-        {
-          id: getUuid(),
-          name: "Riya Shah",
-          username: "@riya_writes",
-          url: "https://randomuser.me/api/portraits/women/82.jpg",
-        },
-        {
-          id: getUuid(),
-          name: "Manan Desai",
-          username: "@notsomanan",
-          url: "https://randomuser.me/api/portraits/men/4.jpg",
-        },
-        {
-          id: getUuid(),
-          name: "AIB",
-          username: "@tanmaybhat",
-          url: "https://randomuser.me/api/portraits/women/75.jpg",
-        },
-        {
-          id: getUuid(),
-          name: "Mehul Patel",
-          username: "@impatel",
-          url: "https://randomuser.me/api/portraits/men/39.jpg",
-        },
-        {
-          id: getUuid(),
-          name: "Shivani Mahajan",
-          username: "@curly_tales",
-          url: "https://randomuser.me/api/portraits/women/62.jpg",
-        },
-        {
-          id: getUuid(),
-          name: "Ayesha Akhtar",
-          username: "@random_muse",
-          url: "https://randomuser.me/api/portraits/women/29.jpg",
-        },
-      ].map((user) => (
-        <>
-          <ListItem
-            selected={true}
-            button
-            key={user.id}
-            className={`${
-              true ? "selected" : ""
-            } remove-horizontal-padding list-padding`}
-          >
-            <ListItemAvatar>
-              <Avatar src={user.url} alt="user-photo" />
-            </ListItemAvatar>
-            <ListItemText primary={user.name} secondary={user.username} />
-            <ListItemSecondaryAction>
-              <Badge color="primary" badgeContent={"9+"} />
-            </ListItemSecondaryAction>
-          </ListItem>
-          <Divider />
-        </>
-      ))}
-    </List>
+    <>
+      <Loader isOpen={isLoading} />
+      <List style={{ paddingTop: 0 }}>
+        {friends.map((user) => (
+          <>
+            <ListItem
+              selected={true}
+              button
+              onClick={() => {
+                handleUserForChat(user);
+              }}
+              // key={user.user_id}
+              className={`${
+                true ? "selected" : ""
+              } remove-horizontal-padding list-padding`}
+            >
+              <ListItemAvatar>
+                <Avatar src={user.user_profile} alt="user-photo" />
+              </ListItemAvatar>
+              <ListItemText primary={user.name} secondary={user.user_name} />
+              {/* <ListItemSecondaryAction>
+                <Badge color="primary" badgeContent={"9+"} />
+              </ListItemSecondaryAction> */}
+            </ListItem>
+            <Divider />
+          </>
+        ))}
+      </List>
+    </>
   );
 };

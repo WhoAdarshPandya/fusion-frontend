@@ -19,7 +19,7 @@ export const Searchbar = ({ onSearch }: SearchbarProps): JSX.Element => {
         <SearchIcon />
       </div>
       <InputBase
-        placeholder="Search for titles/description"
+        placeholder="Search ..."
         classes={{
           root: classes.inputRoot,
           input: classes.inputInput,

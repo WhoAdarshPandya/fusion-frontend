@@ -2,6 +2,7 @@ import { useContext } from "preact/hooks";
 import { AuthContext, LOGOUT, LOGIN } from "../contexts/AuthContext";
 import { setIsLoggedIn, setToken, setUserId } from "../utils";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 export const useAuth = (): {
   isLoggedIn: boolean;
@@ -23,6 +24,7 @@ export const useAuth = (): {
   const makeUserLogout = () => {
     setToken("");
     setIsLoggedIn(false);
+    Cookies.set("chat_id", "");
     setUserId("");
     dispatch({ type: LOGOUT });
     navigate("/login");

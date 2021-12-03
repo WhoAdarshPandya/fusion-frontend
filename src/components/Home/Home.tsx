@@ -13,7 +13,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import { Workspace, Settings, Discover, Chat } from "..";
 import { useHotkeys } from "react-hotkeys-hook";
 import "./Home.css";
-import "preact/debug";
 
 export const Home = (): JSX.Element => {
   const { currentTheme, themeToggler } = useDarkMode();

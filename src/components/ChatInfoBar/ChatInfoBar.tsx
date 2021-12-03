@@ -9,18 +9,30 @@ import PaletteIcon from "@material-ui/icons/Palette";
 import OfflineBoltIcon from "@material-ui/icons/OfflineBolt";
 import { useDarkMode, useUser } from "../../hooks";
 import { useEffect, useState } from "preact/hooks";
-import { CirclePicker } from "react-color";
 import "./ChatInfoBar.css";
 import { getChatTheme, setChatTheme } from "../../utils";
 
-export const ChatInfoBar = (): JSX.Element => {
+interface ChatUserProp {
+  user: any;
+  onAnonymousClick: () => void;
+  anonymousChat: boolean;
+}
+
+export const ChatInfoBar = ({
+  user,
+  onAnonymousClick,
+  anonymousChat,
+}: ChatUserProp): JSX.Element => {
+  // console.log("info bar", user);
   const { currentTheme } = useDarkMode();
   const [themePopOver, setThemePopOver] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const { getUserTheme } = useUser();
+
   useEffect(() => {
     setChatTheme(getChatTheme()!);
   }, []);
+
   const handleClose = () => {
     setAnchorEl(null);
     setThemePopOver(false);
@@ -39,13 +51,14 @@ export const ChatInfoBar = (): JSX.Element => {
       }
     >
       <div className="chat-info-profile">
-        <Avatar
-          src="https://randomuser.me/api/portraits/men/4.jpg"
-          alt="user-photo"
-        />
-        <Typography className="user-name" variant="body1">
-          Sharan Shah
-        </Typography>
+        {user !== null && user !== undefined && (
+          <>
+            <Avatar src={user.user_profile} alt="user-photo" />
+            <Typography className="user-name" variant="body1">
+              {user.name ? user.name : "user name"}
+            </Typography>
+          </>
+        )}
       </div>
       <div className="chat-info-buttons">
         <IconButton id="theme-popover" onClick={handleClick} color="primary">
@@ -81,9 +94,15 @@ export const ChatInfoBar = (): JSX.Element => {
           </Paper>
         </Popover>
         {/* popover */}
-        <IconButton color="primary">
-          <OfflineBoltIcon />
-        </IconButton>
+        {anonymousChat ? (
+          <IconButton onClick={onAnonymousClick} color="primary">
+            <OfflineBoltIcon />
+          </IconButton>
+        ) : (
+          <IconButton onClick={onAnonymousClick}>
+            <OfflineBoltIcon />
+          </IconButton>
+        )}
       </div>
     </div>
   );

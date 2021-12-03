@@ -98,11 +98,59 @@ export const loginReq = async (email: string, password: string) => {
   return resp;
 };
 
-export const getUserData = async (): Promise<RequestHelperResponse> => {
+export const getUserData = async (
+  id: string = ""
+): Promise<RequestHelperResponse> => {
   const token = getToken();
   let resp: RequestHelperResponse = { success: false };
   await axios
-    .get<User>(`${getBaseUrl()}/api/v1/user/getalldata/${getUserId()}`, {
+    .get<User>(
+      `${getBaseUrl()}/api/v1/user/getalldata/${id === "" ? getUserId() : id}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "auth-token": token!,
+        },
+      }
+    )
+    .then((result) => {
+      resp = { success: true, err: null, result: result.data };
+    })
+    .catch((err) => {
+      resp = { success: false, err };
+      console.log(resp);
+    });
+  return resp;
+};
+
+export const getAllUsers = async (): Promise<RequestHelperResponse> => {
+  const token = getToken();
+  let resp: RequestHelperResponse = { success: false };
+  await axios
+    .get(`${getBaseUrl()}/api/v1/user/getallusers`, {
+      headers: {
+        "Content-Type": "application/json",
+        "auth-token": token!,
+      },
+    })
+    .then((result) => {
+      resp = { success: true, err: null, result: result.data };
+    })
+    .catch((err) => {
+      resp = { success: false, err };
+      console.log(resp);
+    });
+  return resp;
+};
+
+export const getAllRequests = async (
+  id: string
+): Promise<RequestHelperResponse> => {
+  const token = getToken();
+  // const id = getUserId();
+  let resp: RequestHelperResponse = { success: false };
+  await axios
+    .get(`${getBaseUrl()}/api/v1/requests/getrequests/${id}`, {
       headers: {
         "Content-Type": "application/json",
         "auth-token": token!,
@@ -427,6 +475,170 @@ export const updateTodoInfo = async (
         },
       }
     )
+    .then((result) => {
+      return { success: true, err: null, result };
+    })
+    .catch((err) => ({ err: String(err), success: false }));
+  return resp;
+};
+
+export const deleteRequestReq = async (
+  master_id: string,
+  request_id: string
+): Promise<RequestHelperResponse> => {
+  const token = getToken();
+  let resp: RequestHelperResponse = { success: false };
+  resp = await axios
+    .get(
+      `${getBaseUrl()}/api/v1/requests/deleterequest/${master_id}/${request_id}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "auth-token": token!,
+        },
+      }
+    )
+    .then((result) => {
+      return { success: true, err: null, result };
+    })
+    .catch((err) => ({ err: String(err), success: false }));
+  return resp;
+};
+
+export const addFriendReq = async (
+  id: string,
+  user_id: string,
+  friendship_id: string,
+  date: string,
+  time: string,
+  name: string,
+  user_name: string,
+  user_profile: string
+): Promise<RequestHelperResponse> => {
+  const token = getToken();
+  const c_id = getUserId();
+  let resp: RequestHelperResponse = { success: false };
+  resp = await axios
+    .post(
+      `${getBaseUrl()}/api/v1/friends/addfriend`,
+      {
+        id,
+        user_id,
+        friendship_id,
+        date,
+        time,
+        name,
+        user_name,
+        user_profile,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "auth-token": token!,
+        },
+      }
+    )
+    .then((result) => {
+      return { success: true, err: null, result };
+    })
+    .catch((err) => ({ err: String(err), success: false }));
+  return resp;
+};
+
+export const getAllFriends = async (
+  friend_id: string
+): Promise<RequestHelperResponse> => {
+  const token = getToken();
+  // const id = getUserId();
+  let resp: RequestHelperResponse = { success: false };
+  await axios
+    .get(`${getBaseUrl()}/api/v1/friends/getfriends/${friend_id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        "auth-token": token!,
+      },
+    })
+    .then((result) => {
+      resp = { success: true, err: null, result: result.data };
+    })
+    .catch((err) => {
+      resp = { success: false, err };
+      console.log(resp);
+    });
+  return resp;
+};
+
+export const getAllChatsReq = async (
+  chat_id: string
+): Promise<RequestHelperResponse> => {
+  const token = getToken();
+  // const id = getUserId();
+  let resp: RequestHelperResponse = { success: false };
+  await axios
+    .get(`${getBaseUrl()}/api/v1/chats/getchats/${chat_id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        "auth-token": token!,
+      },
+    })
+    .then((result) => {
+      resp = { success: true, err: null, result: result.data };
+    })
+    .catch((err) => {
+      resp = { success: false, err };
+      console.log(resp);
+    });
+  return resp;
+};
+
+export const addChatReq = async (
+  id: string,
+  chat_id: string,
+  friendship_id: string,
+  msg: string,
+  receiver_id: string,
+  sender_id: string
+): Promise<RequestHelperResponse> => {
+  const token = getToken();
+  let resp: RequestHelperResponse = { success: false };
+  resp = await axios
+    .post(
+      `${getBaseUrl()}/api/v1/chats/addchat`,
+      {
+        id,
+        chat_id,
+        friendship_id,
+        msg,
+        receiver_id,
+        sender_id,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "auth-token": token!,
+        },
+      }
+    )
+    .then((result) => {
+      return { success: true, err: null, result };
+    })
+    .catch((err) => ({ err: String(err), success: false }));
+  return resp;
+};
+
+export const deleteChatReq = async (
+  master_id: string,
+  chat__id: string
+): Promise<RequestHelperResponse> => {
+  const token = getToken();
+  let resp: RequestHelperResponse = { success: false };
+  resp = await axios
+    .get(`${getBaseUrl()}/api/v1/chats/deletechat/${master_id}/${chat__id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        "auth-token": token!,
+      },
+    })
     .then((result) => {
       return { success: true, err: null, result };
     })

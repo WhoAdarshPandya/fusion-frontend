@@ -9,16 +9,102 @@ import {
   Paper,
   Typography,
 } from "@material-ui/core";
-import { Searchbar } from "..";
-import { getUuid } from "../../utils";
+import { useEffect, useState } from "preact/hooks";
+import { Loader, Searchbar } from "..";
+import { useSnackbarHelper, useUser } from "../../hooks";
+import { getAllUsers, getSocket, getUuid, socket } from "../../utils";
 import "./AvailableList.css";
 
 export const AvailableList = (): JSX.Element => {
+  const [users, setUsers] = useState([
+    {
+      _id: "",
+      name: "",
+      user_name: "",
+      user_id: "",
+      profile_url: "",
+      email: "",
+      request_id: "",
+      chat_id: "",
+      friend_id: "",
+      dnd: false,
+    },
+  ]);
+
+  const [data, setData] = useState([
+    {
+      _id: "",
+      name: "",
+      user_name: "",
+      user_id: "",
+      profile_url: "",
+      email: "",
+      request_id: "",
+      chat_id: "",
+      friend_id: "",
+      dnd: false,
+    },
+  ]);
+  const [isLoading, setIsLoading] = useState(true);
+  const { getUserID, getUserProfileUrl, getUserName, getUserUserName } =
+    useUser();
+  const id = getUserID();
+  const { snackbarInjector } = useSnackbarHelper();
+  const getUserData = async () => {
+    const data = await getAllUsers();
+    const id = getUserID();
+    console.log(id);
+    console.log(data);
+    if (data.success) {
+      if (data.result.data.success) {
+        setUsers(data.result.data.result);
+        setData(data.result.data.result);
+      } else {
+        setUsers([]);
+        setData([]);
+      }
+      // console.log(data.result.data.result, "succ");
+    } else {
+      alert("error occured. [t101]");
+    }
+    setIsLoading(false);
+  };
+  useEffect(() => {
+    getUserData();
+  }, []);
+
+  const handleSearch = (search: string) => {
+    if (search === "") {
+      setUsers(data);
+    } else {
+      setUsers(data);
+      setUsers((prevTodosData) =>
+        prevTodosData.filter(
+          (item) =>
+            item.name.includes(search) || item.user_name.includes(search)
+        )
+      );
+    }
+  };
+
+  const handleSendRequest = (user: any) => {
+    socket.emit("sendReqEvent", {
+      id: user.request_id,
+      req_by_id: id,
+      req_id: getUuid(),
+      req_for_id: user.user_id,
+      name: getUserName(),
+      username: getUserUserName(),
+      user_profile: getUserProfileUrl(),
+    });
+    snackbarInjector("success", `reqeust sent to ${user.name}`, true, "5000");
+  };
   return (
     <Paper elevation={0} className="available-container transition-class">
+      <Loader isOpen={isLoading} />
       <br />
       <div className="searchbar-container ">
-        <Searchbar onSearch={() => {}} />
+        <Searchbar onSearch={handleSearch} />
       </div>
       <div className="list-renderer">
         <br />
@@ -26,66 +112,30 @@ export const AvailableList = (): JSX.Element => {
           Users
         </Typography>
         <List>
-          {[
-            {
-              id: getUuid(),
-              name: "Sharan Shah",
-              username: "@sharan_works",
-              url: "https://randomuser.me/api/portraits/men/68.jpg",
-            },
-            {
-              id: getUuid(),
-              name: "Jill Bhat",
-              username: "@mr.redcarpet",
-              url: "https://randomuser.me/api/portraits/men/3.jpg",
-            },
-            {
-              id: getUuid(),
-              name: "Riya Shah",
-              username: "@riya_writes",
-              url: "https://randomuser.me/api/portraits/women/82.jpg",
-            },
-            {
-              id: getUuid(),
-              name: "Manan Desai",
-              username: "@notsomanan",
-              url: "https://randomuser.me/api/portraits/men/4.jpg",
-            },
-            {
-              id: getUuid(),
-              name: "AIB",
-              username: "@tanmaybhat",
-              url: "https://randomuser.me/api/portraits/women/75.jpg",
-            },
-            {
-              id: getUuid(),
-              name: "Mehul Patel",
-              username: "@impatel",
-              url: "https://randomuser.me/api/portraits/men/39.jpg",
-            },
-            {
-              id: getUuid(),
-              name: "Shivani Mahajan",
-              username: "@curly_tales",
-              url: "https://randomuser.me/api/portraits/women/62.jpg",
-            },
-            {
-              id: getUuid(),
-              name: "Ayesha Akhtar",
-              username: "@random_muse",
-              url: "https://randomuser.me/api/portraits/women/29.jpg",
-            },
-          ].map((user) => (
-            <ListItem key={user.id} className="remove-horizontal-padding">
-              <ListItemAvatar>
-                <Avatar src={user.url} alt="user-photo" />
-              </ListItemAvatar>
-              <ListItemText primary={user.name} secondary={user.username} />
-              <ListItemSecondaryAction>
-                <Button color="primary">Send Request</Button>
-              </ListItemSecondaryAction>
-            </ListItem>
-          ))}
+          {users.map(
+            (user) =>
+              user.user_id !== id && (
+                <ListItem key={user._id} className="remove-horizontal-padding">
+                  <ListItemAvatar>
+                    <Avatar src={user.profile_url} alt="user-photo" />
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={user.name}
+                    secondary={user.user_name}
+                  />
+                  <ListItemSecondaryAction>
+                    <Button
+                      color="primary"
+                      onClick={() => {
+                        handleSendRequest(user);
+                      }}
+                    >
+                      Send Request
+                    </Button>
+                  </ListItemSecondaryAction>
+                </ListItem>
+              )
+          )}
         </List>
       </div>
     </Paper>

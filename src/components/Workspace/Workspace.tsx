@@ -26,6 +26,7 @@ import { Loader, CardComponent } from "..";
 import { useHotkeys } from "react-hotkeys-hook";
 import "./Workspace.css";
 import { getUserData } from "../../utils/";
+import Cookies from "js-cookie";
 
 export const Workspace = (): JSX.Element => {
   const { date } = useDate();
@@ -136,6 +137,7 @@ export const Workspace = (): JSX.Element => {
           console.log(todoData.result.data.result[0].todos);
           setData(todoData.result.data.result[0].todos);
           setTodo(todoData.result.data.result[0].todos);
+          Cookies.set("chat_id", chat_id);
         } else {
           console.log(data.err);
         }
