@@ -264,7 +264,6 @@ export const updatePasswordReq = async (
   let resp: RequestHelperResponse = { success: false };
   const token = getToken();
   // const id = getUserId();
-  console.log(email, id, old_pass, new_pass);
   resp = await axios
     .post(
       `${getBaseUrl()}/api/v1/user/updatepassword`,

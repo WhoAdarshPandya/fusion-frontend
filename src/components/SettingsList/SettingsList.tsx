@@ -120,13 +120,13 @@ export const SettingsList = (): JSX.Element => {
     if (oldPassword !== "" && newPassword !== "") {
       const data = await updatePasswordReq(id, oldPassword, newPassword, email);
       if (data.success) {
-        if (data.result.count > 0) {
+        if (data.result.data.count > 0) {
           alert("updated");
           setNewPassword("");
           setOldPassword("");
           setIsPassDialogOpen(false);
         } else {
-          alert("not updated");
+          // alert("not updated");
           setIsPassDialogOpen(false);
         }
       } else {

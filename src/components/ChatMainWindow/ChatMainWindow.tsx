@@ -38,6 +38,8 @@ export const ChatMainWindow = ({
   // ]);
   const { snackbarInjector } = useSnackbarHelper();
   // ⚛ experimental
+  const { getUserNotificationStatus } = useUser();
+  const nft = getUserNotificationStatus();
   const messageEl = useRef<HTMLDivElement>(null);
   messageEl.current?.scrollIntoView({ behavior: "smooth" });
 
@@ -76,8 +78,11 @@ export const ChatMainWindow = ({
         // getChatsU();
         setMessages({ msg, sender_id, chat_id, friendship_id });
         scrollToBottom();
-        console.log(messages);
-        console.log(msg);
+        // console.log(messages);
+        // console.log(msg);
+        let nft = getUserNotificationStatus();
+        console.log(nft);
+        nft && snackbarInjector("info", msg, true, "5000");
       }
     );
 
