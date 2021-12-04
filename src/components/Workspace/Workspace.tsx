@@ -80,6 +80,8 @@ export const Workspace = (): JSX.Element => {
       time: "05:05",
     },
   ]);
+
+  const [order, setOrder] = useState("PinnedFirst");
   // const [isSearchOn, setIsSearchOn] = useState(false);
   const handleDrawerToggle = () => {
     setOpen((prev) => !prev);
@@ -224,6 +226,46 @@ export const Workspace = (): JSX.Element => {
     setTodo((todo) => todo.filter((item) => item._id !== _id));
   };
 
+  const handleOrderChange = (filter: string) => {
+    if (filter === "A-Z") {
+      console.log("az");
+      setOrder(filter);
+      setTodo((prevData) =>
+        prevData.sort((a, b) => {
+          if (a.title.toUpperCase() < b.title.toUpperCase()) return -1;
+          if (a.title.toUpperCase() > b.title.toUpperCase()) return 1;
+          return 0;
+        })
+      );
+      setData((prevData) =>
+        prevData.sort((a, b) => {
+          if (a.title.toUpperCase() < b.title.toUpperCase()) return -1;
+          if (a.title.toUpperCase() > b.title.toUpperCase()) return 1;
+          return 0;
+        })
+      );
+    } else if (filter === "Z-A") {
+      console.log("za");
+      setOrder(filter);
+      setTodo((prevData) =>
+        prevData.sort((a, b) => {
+          if (a.title.toUpperCase() < b.title.toUpperCase()) return 1;
+          if (a.title.toUpperCase() > b.title.toUpperCase()) return -1;
+          return 0;
+        })
+      );
+      setData((prevData) =>
+        prevData.sort((a, b) => {
+          if (a.title.toUpperCase() < b.title.toUpperCase()) return 1;
+          if (a.title.toUpperCase() > b.title.toUpperCase()) return -1;
+          return 0;
+        })
+      );
+    } else {
+      console.log(filter);
+      setOrder(filter);
+    }
+  };
   return (
     <>
       <Loader isOpen={isLoading} />
@@ -266,44 +308,201 @@ export const Workspace = (): JSX.Element => {
           )}
           {data.length > 0 && (
             <>
-              <Typography variant="body1" color="secondary">
-                Pinned
-              </Typography>
-              <br />
-              <Paper elevation={0} className="workspace-cards transition-class">
-                {data.map((item) => (
-                  <>
-                    {item.isStarred && (
-                      <CardComponent
-                        onSubmit={handleTodoSubmit}
-                        onPinClick={handlePinClick}
-                        onDeleteClick={handleDeleteClick}
-                        key={item._id}
-                        data={item}
-                      />
-                    )}
-                  </>
-                ))}
-              </Paper>
-              <Typography variant="body1" color="primary">
-                Unpinned
-              </Typography>
-              <br />
-              <Paper elevation={0} className="workspace-cards transition-class">
-                {data.map((item) => (
-                  <>
-                    {!item.isStarred && (
-                      <CardComponent
-                        onSubmit={handleTodoSubmit}
-                        onPinClick={handlePinClick}
-                        onDeleteClick={handleDeleteClick}
-                        key={item._id}
-                        data={item}
-                      />
-                    )}
-                  </>
-                ))}
-              </Paper>
+              {order === "PinnedFirst" && (
+                <>
+                  <Typography variant="body1" color="secondary">
+                    Pinned
+                  </Typography>
+                  <br />
+                  <Paper
+                    elevation={0}
+                    className="workspace-cards transition-class"
+                  >
+                    {data.map((item) => (
+                      <>
+                        {item.isStarred && (
+                          <CardComponent
+                            onSubmit={handleTodoSubmit}
+                            onPinClick={handlePinClick}
+                            onDeleteClick={handleDeleteClick}
+                            key={item._id}
+                            data={item}
+                          />
+                        )}
+                      </>
+                    ))}
+                  </Paper>
+                  <Typography variant="body1" color="primary">
+                    Unpinned
+                  </Typography>
+                  <br />
+                  <Paper
+                    elevation={0}
+                    className="workspace-cards transition-class"
+                  >
+                    {data.map((item) => (
+                      <>
+                        {!item.isStarred && (
+                          <CardComponent
+                            onSubmit={handleTodoSubmit}
+                            onPinClick={handlePinClick}
+                            onDeleteClick={handleDeleteClick}
+                            key={item._id}
+                            data={item}
+                          />
+                        )}
+                      </>
+                    ))}
+                  </Paper>
+                </>
+              )}
+
+              {order === "A-Z" && (
+                <>
+                  <Typography variant="body1" color="secondary">
+                    Pinned
+                  </Typography>
+                  <br />
+                  <Paper
+                    elevation={0}
+                    className="workspace-cards transition-class"
+                  >
+                    {data.map((item) => (
+                      <>
+                        {item.isStarred && (
+                          <CardComponent
+                            onSubmit={handleTodoSubmit}
+                            onPinClick={handlePinClick}
+                            onDeleteClick={handleDeleteClick}
+                            key={item._id}
+                            data={item}
+                          />
+                        )}
+                      </>
+                    ))}
+                  </Paper>
+                  <Typography variant="body1" color="primary">
+                    Unpinned
+                  </Typography>
+                  <br />
+                  <Paper
+                    elevation={0}
+                    className="workspace-cards transition-class"
+                  >
+                    {data.map((item) => (
+                      <>
+                        {!item.isStarred && (
+                          <CardComponent
+                            onSubmit={handleTodoSubmit}
+                            onPinClick={handlePinClick}
+                            onDeleteClick={handleDeleteClick}
+                            key={item._id}
+                            data={item}
+                          />
+                        )}
+                      </>
+                    ))}
+                  </Paper>
+                </>
+              )}
+
+              {order === "Z-A" && (
+                <>
+                  <Typography variant="body1" color="secondary">
+                    Pinned
+                  </Typography>
+                  <br />
+                  <Paper
+                    elevation={0}
+                    className="workspace-cards transition-class"
+                  >
+                    {data.map((item) => (
+                      <>
+                        {item.isStarred && (
+                          <CardComponent
+                            onSubmit={handleTodoSubmit}
+                            onPinClick={handlePinClick}
+                            onDeleteClick={handleDeleteClick}
+                            key={item._id}
+                            data={item}
+                          />
+                        )}
+                      </>
+                    ))}
+                  </Paper>
+                  <Typography variant="body1" color="primary">
+                    Unpinned
+                  </Typography>
+                  <br />
+                  <Paper
+                    elevation={0}
+                    className="workspace-cards transition-class"
+                  >
+                    {data.map((item) => (
+                      <>
+                        {!item.isStarred && (
+                          <CardComponent
+                            onSubmit={handleTodoSubmit}
+                            onPinClick={handlePinClick}
+                            onDeleteClick={handleDeleteClick}
+                            key={item._id}
+                            data={item}
+                          />
+                        )}
+                      </>
+                    ))}
+                  </Paper>
+                </>
+              )}
+
+              {order === "UnpinnedFirst" && (
+                <>
+                  <Typography variant="body1" color="primary">
+                    Unpinned
+                  </Typography>
+                  <br />
+                  <Paper
+                    elevation={0}
+                    className="workspace-cards transition-class"
+                  >
+                    {data.map((item) => (
+                      <>
+                        {!item.isStarred && (
+                          <CardComponent
+                            onSubmit={handleTodoSubmit}
+                            onPinClick={handlePinClick}
+                            onDeleteClick={handleDeleteClick}
+                            key={item._id}
+                            data={item}
+                          />
+                        )}
+                      </>
+                    ))}
+                  </Paper>
+                  <Typography variant="body1" color="secondary">
+                    Pinned
+                  </Typography>
+                  <br />
+                  <Paper
+                    elevation={0}
+                    className="workspace-cards transition-class"
+                  >
+                    {data.map((item) => (
+                      <>
+                        {item.isStarred && (
+                          <CardComponent
+                            onSubmit={handleTodoSubmit}
+                            onPinClick={handlePinClick}
+                            onDeleteClick={handleDeleteClick}
+                            key={item._id}
+                            data={item}
+                          />
+                        )}
+                      </>
+                    ))}
+                  </Paper>
+                </>
+              )}
             </>
           )}
           {/* {data.length > 0 && <></>} */}
@@ -369,7 +568,10 @@ export const Workspace = (): JSX.Element => {
           </IconButton>
         </div>
         <Divider />
-        <DrawerList handleDrawerToggle={handleDrawerToggle} />
+        <DrawerList
+          handleFilter={handleOrderChange}
+          handleDrawerToggle={handleDrawerToggle}
+        />
       </Drawer>
     </>
   );

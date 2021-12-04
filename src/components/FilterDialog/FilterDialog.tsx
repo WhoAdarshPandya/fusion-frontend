@@ -59,7 +59,7 @@ export const FilterDialog = ({
           control={<Radio color="primary" />}
           label="Z-A (Alphabetically)"
         />
-        <FormControlLabel
+        {/* <FormControlLabel
           value="SortByDateAsc"
           control={<Radio color="primary" />}
           label="Sort By Date (Ascending)"
@@ -68,7 +68,7 @@ export const FilterDialog = ({
           value="SortByDateDsc"
           control={<Radio color="primary" />}
           label="Sort By Date (Descending)"
-        />
+        /> */}
       </RadioGroup>
     </CustomDialog>
   );

@@ -18,9 +18,11 @@ import { updateUserDndReq } from "../../utils";
 
 interface DrawerListProps {
   handleDrawerToggle: () => void;
+  handleFilter: (filter: string) => void;
 }
 export const DrawerList = ({
   handleDrawerToggle,
+  handleFilter,
 }: DrawerListProps): JSX.Element => {
   const { themeToggler } = useDarkMode();
   const { makeUserLogout } = useAuth();
@@ -81,7 +83,8 @@ export const DrawerList = ({
   };
 
   const onFilterApplied = (filter: string) => {
-    console.log(filter);
+    // console.log(filter);
+    handleFilter(filter);
     handleFilterClose();
   };
   return (

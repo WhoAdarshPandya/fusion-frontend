@@ -52,10 +52,9 @@ export const Login = (): JSX.Element => {
           <div className="sqaure">
             <img src={arr[0]} className="svg-image" alt="hero-img" />
             <Typography color="textSecondary" align="justify">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum
-              animi molestias enim accusantium nemo nam, suscipit laudantium
-              fuga ex saepe quibusdam fugit quisquam delectus? Vel consequuntur
-              aliquam fugiat est facere.
+              Fusion is build with minimal footprint libraries. hence it loades
+              7x more faster than regular social network. sort your work, chat
+              with your work collegues and give your contribution in work
             </Typography>
           </div>
         </div>
@@ -63,10 +62,10 @@ export const Login = (): JSX.Element => {
           <div className="sqaure reverse">
             <img src={arr[1]} className="svg-image" alt="hero-img" />
             <Typography color="textSecondary" align="justify">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum
-              animi molestias enim accusantium nemo nam, suscipit laudantium
-              fuga ex saepe quibusdam fugit quisquam delectus? Vel consequuntur
-              aliquam fugiat est facere.
+              with enjoyable work environment fusion delivers elegant and simple
+              ui with all accessibility criterias. managing the workspace won't
+              be an issue for you once you get familiar with fusion thanks to
+              it's super easy workflow
             </Typography>
           </div>
         </div>

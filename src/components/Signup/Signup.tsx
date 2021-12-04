@@ -126,10 +126,10 @@ export const Signup = (): JSX.Element => {
           <div className="sqaure reverse">
             <img src={arr[0]} className="svg-image" alt="hero-img" />
             <Typography color="textSecondary" align="justify">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum
-              animi molestias enim accusantium nemo nam, suscipit laudantium
-              fuga ex saepe quibusdam fugit quisquam delectus? Vel consequuntur
-              aliquam fugiat est facere.
+              chat real time with work colleagues. send real time messages
+              without a single refresh. we built fusion in a way so you have to
+              download less or no ammount of bundle again and again. so it
+              becomes more faster ,simpler and easier.
             </Typography>
           </div>
         </div>
@@ -137,10 +137,10 @@ export const Signup = (): JSX.Element => {
           <div className="sqaure ">
             <img src={arr[1]} className="svg-image" alt="hero-img" />
             <Typography color="textSecondary" align="justify">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum
-              animi molestias enim accusantium nemo nam, suscipit laudantium
-              fuga ex saepe quibusdam fugit quisquam delectus? Vel consequuntur
-              aliquam fugiat est facere.
+              fusion is secure and cares about your privacy- means that all the
+              data you provide us will be secured and never read by someone
+              else. we've worked hard and ensured that there are 100% securiy
+              measures in your workspace.
             </Typography>
           </div>
         </div>
