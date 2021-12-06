@@ -154,6 +154,7 @@ export const Workspace = (): JSX.Element => {
 
   // ⚛ experimental
   const onSearch = (search: string) => {
+    search = search.toLowerCase();
     if (search === "") {
       setData(todo);
     } else {
@@ -161,7 +162,8 @@ export const Workspace = (): JSX.Element => {
       setData((prevTodosData) =>
         prevTodosData.filter(
           (item) =>
-            item.title.includes(search) || item.description.includes(search)
+            item.title.toLowerCase().includes(search) ||
+            item.description.toLowerCase().includes(search)
         )
       );
     }
