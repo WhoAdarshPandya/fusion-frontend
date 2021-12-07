@@ -8,7 +8,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
-import { CustomDialog, SettingsList } from "..";
+import { CustomDialog, SettingLoader, SettingsList } from "..";
 import { useUser } from "../../hooks";
 import { useEffect, useState } from "preact/hooks";
 import "./Settings.css";
@@ -25,16 +25,39 @@ export const Settings = (): JSX.Element => {
     setUserUserName,
     setUserName: sun,
   } = useUser();
-  const name = getUserName();
-  const user_name = getUserUserName();
-  const url = getUserProfileUrl();
-  const email = getUserEmail();
+  const name: string = getUserName();
+  const user_name: string = getUserUserName();
+  const url: string = getUserProfileUrl();
+  const email: string = getUserEmail();
   const [profile, setProfile] = useState(null);
   const [imgUrl, setImgUrl] = useState(url);
   const [Iname, setName] = useState(name);
   const [Iusername, setUsername] = useState(user_name);
   const [Iemail, setEmail] = useState(email);
   const [isUpdateInfoOpen, setIsUpdateInfoOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    if (
+      name !== "" &&
+      name !== undefined &&
+      name !== null &&
+      email !== "" &&
+      email !== undefined &&
+      email !== null &&
+      user_name !== "" &&
+      user_name !== undefined &&
+      user_name !== null &&
+      url !== "" &&
+      url !== undefined &&
+      url !== null
+    ) {
+      setIsLoading(false);
+    } else {
+      setIsLoading(true);
+    }
+  }, [url, name, user_name, url]);
+
   const handleProfile = (e: any) => {
     const selected = ["image/png", "image/jpeg"];
     if (selected.includes(e.target.files[0].type)) {
@@ -94,110 +117,116 @@ export const Settings = (): JSX.Element => {
 
   return (
     <>
-      <Paper elevation={0} className="settings-container transition-class">
-        <br />
-        <Paper variant="outlined" className="profile-row transition-class">
-          <div className="profile-container">
-            <Badge
-              overlap="circular"
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "right",
-              }}
-              badgeContent={
-                <IconButton className="bg-primary" component="label">
-                  <EditOutlinedIcon
-                    color="action"
-                    className="white"
-                    fontSize="small"
+      {isLoading ? (
+        <SettingLoader />
+      ) : (
+        <>
+          <Paper elevation={0} className="settings-container transition-class">
+            <br />
+            <Paper variant="outlined" className="profile-row transition-class">
+              <div className="profile-container">
+                <Badge
+                  overlap="circular"
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "right",
+                  }}
+                  badgeContent={
+                    <IconButton className="bg-primary" component="label">
+                      <EditOutlinedIcon
+                        color="action"
+                        className="white"
+                        fontSize="small"
+                      />
+                      <input
+                        type="file"
+                        onChange={(e: any) => {
+                          handleProfile(e);
+                        }}
+                        style={{ display: "none" }}
+                      />
+                    </IconButton>
+                  }
+                >
+                  <Avatar
+                    src={imgUrl !== "" ? imgUrl : url}
+                    className="large-profile"
+                    alt="user-photo"
                   />
-                  <input
-                    type="file"
-                    onChange={(e: any) => {
-                      handleProfile(e);
-                    }}
-                    style={{ display: "none" }}
-                  />
-                </IconButton>
-              }
-            >
-              <Avatar
-                src={imgUrl !== "" ? imgUrl : url}
-                className="large-profile"
-                alt="user-photo"
-              />
-            </Badge>
+                </Badge>
 
-            <div className="user-details">
-              <Typography variant="h6" color="primary">
-                {Iname !== "" ? Iname : name}
-              </Typography>
-              <Typography variant="body1" color="textSecondary">
-                {Iusername !== "" ? Iusername : user_name}
-              </Typography>
-            </div>
-          </div>
-          <div>
-            <IconButton color="primary" onClick={handleUpdateInfo}>
-              <EditOutlinedIcon />
-            </IconButton>
-          </div>
-        </Paper>
-        <br />
-        <SettingsList />
-        <br />
-      </Paper>
-      <CustomDialog
-        open={isUpdateInfoOpen}
-        onClose={handleUpdateInfoClose}
-        cancelButton={false}
-        onOkClick={handleUpdateInfoClose}
-        positiveButtonName="cancel"
-        title="Profile Info"
-        containsContent={false}
-      >
-        <TextField
-          variant="outlined"
-          label="name"
-          value={Iname === "" ? name : Iname}
-          onChange={(e: any) => {
-            setName(e.target.value);
-          }}
-          className="full-width"
-        />
-        <br />
-        <br />
-        <TextField
-          variant="outlined"
-          label="user name"
-          value={Iusername === "" ? user_name : Iusername}
-          onChange={(e: any) => {
-            setUsername(e.target.value);
-          }}
-          className="full-width"
-        />
-        <br />
-        <br />
-        <TextField
-          variant="outlined"
-          label="email"
-          value={Iemail === "" ? email : Iemail}
-          onChange={(e: any) => {
-            setEmail(e.target.value);
-          }}
-          className="full-width"
-        />
-        <br />
-        <br />
-        <Button
-          onClick={handleUpdate}
-          variant="contained"
-          className="full-width"
-          color="primary"
-        >
-          update info
-        </Button>
-      </CustomDialog>
+                <div className="user-details">
+                  <Typography variant="h6" color="primary">
+                    {Iname !== "" ? Iname : name}
+                  </Typography>
+                  <Typography variant="body1" color="textSecondary">
+                    {Iusername !== "" ? Iusername : user_name}
+                  </Typography>
+                </div>
+              </div>
+              <div>
+                <IconButton color="primary" onClick={handleUpdateInfo}>
+                  <EditOutlinedIcon />
+                </IconButton>
+              </div>
+            </Paper>
+            <br />
+            <SettingsList />
+            <br />
+          </Paper>
+          <CustomDialog
+            open={isUpdateInfoOpen}
+            onClose={handleUpdateInfoClose}
+            cancelButton={false}
+            onOkClick={handleUpdateInfoClose}
+            positiveButtonName="cancel"
+            title="Profile Info"
+            containsContent={false}
+          >
+            <TextField
+              variant="outlined"
+              label="name"
+              value={Iname === "" ? name : Iname}
+              onChange={(e: any) => {
+                setName(e.target.value);
+              }}
+              className="full-width"
+            />
+            <br />
+            <br />
+            <TextField
+              variant="outlined"
+              label="user name"
+              value={Iusername === "" ? user_name : Iusername}
+              onChange={(e: any) => {
+                setUsername(e.target.value);
+              }}
+              className="full-width"
+            />
+            <br />
+            <br />
+            <TextField
+              variant="outlined"
+              label="email"
+              value={Iemail === "" ? email : Iemail}
+              onChange={(e: any) => {
+                setEmail(e.target.value);
+              }}
+              className="full-width"
+            />
+            <br />
+            <br />
+            <Button
+              onClick={handleUpdate}
+              variant="contained"
+              className="full-width"
+              color="primary"
+            >
+              update info
+            </Button>
+          </CustomDialog>
+        </>
+      )}
     </>
   );
 };

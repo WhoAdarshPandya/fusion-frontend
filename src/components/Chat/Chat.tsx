@@ -47,8 +47,6 @@ export const Chat = (): JSX.Element => {
     <Paper elevation={0} className="chat-container transition-class">
       <div className="chat-flexbox">
         <div className="chat-friends">
-          <Switch /> <span>DND</span>
-          <Divider />
           <ChatList onChatClick={handleChatClick} />
         </div>
         <div className="chat-window">

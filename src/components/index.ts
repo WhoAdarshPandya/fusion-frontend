@@ -26,3 +26,6 @@ export { FeatureRequestDialog } from "./FeatureRequestDialog/FeatureRequestDialo
 export { FilterDialog } from "./FilterDialog/FilterDialog";
 export { ShortcutDialog } from "./ShortcutDialog/ShortcutDialog";
 export { AddTodoDialog } from "./AddTodoDialog/AddTodoDialog";
+export { SettingLoader } from "./SettingLoader/SettingLoader";
+export { WorkspaceLoader } from "./WorkspaceLoader/WorkspaceLoader";
+export { RequestAndDiscoverLoader } from "./RequestAndDiscoverLoader/RequestAndDiscoverLoader";
