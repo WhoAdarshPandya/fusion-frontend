@@ -60,15 +60,15 @@ export const FilterDialog = ({
           label="Z-A (Alphabetically)"
         />
         {/* <FormControlLabel
-          value="SortByDateAsc"
-          control={<Radio color="primary" />}
-          label="Sort By Date (Ascending)"
-        />
-        <FormControlLabel
-          value="SortByDateDsc"
-          control={<Radio color="primary" />}
-          label="Sort By Date (Descending)"
-        /> */}
+					value="SortByDateAsc"
+					control={<Radio color="primary" />}
+					label="Sort By Date (Ascending)"
+				/>
+				<FormControlLabel
+					value="SortByDateDsc"
+					control={<Radio color="primary" />}
+					label="Sort By Date (Descending)"
+				/> */}
       </RadioGroup>
     </CustomDialog>
   );

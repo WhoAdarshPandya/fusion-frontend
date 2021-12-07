@@ -23,10 +23,9 @@ import CloseIcon from "@material-ui/icons/Close";
 import MenuIcon from "@material-ui/icons/Menu";
 import SpeedDialIcon from "@material-ui/lab/SpeedDialIcon";
 import { Loader, CardComponent } from "..";
-import { useHotkeys } from "react-hotkeys-hook";
-import "./Workspace.css";
 import { getUserData } from "../../utils/";
 import Cookies from "js-cookie";
+import "./Workspace.css";
 
 export const Workspace = (): JSX.Element => {
   const { date } = useDate();
@@ -270,7 +269,7 @@ export const Workspace = (): JSX.Element => {
   };
   return (
     <>
-      <Loader isOpen={isLoading} />
+      {/* <Loader isOpen={isLoading} /> */}
 
       <Paper elevation={0} className="workspace-container transition-class">
         {/* row */}

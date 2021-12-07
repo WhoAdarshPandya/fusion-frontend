@@ -35,7 +35,7 @@ export const ChatList = ({ onChatClick }: ChatlistProps): JSX.Element => {
   const { getUserFriendID } = useUser();
   const { snackbarInjector } = useSnackbarHelper();
   const getUserFriends = async () => {
-    const id = getUserFriendID();
+    // const id = getUserFriendID();
     const data = await getAllFriends(String(id));
     console.log(data);
     if (data.success) {
@@ -55,9 +55,11 @@ export const ChatList = ({ onChatClick }: ChatlistProps): JSX.Element => {
   const id = getUserFriendID();
 
   useEffect(() => {
-    (async () => {
-      await getUserFriends();
-    })();
+    if (id !== "" && id !== undefined && id !== null) {
+      (async () => {
+        await getUserFriends();
+      })();
+    }
     getSocket().on("updateFriends", async () => {
       await getUserFriends();
     });
@@ -68,7 +70,7 @@ export const ChatList = ({ onChatClick }: ChatlistProps): JSX.Element => {
   };
   return (
     <>
-      <Loader isOpen={isLoading} />
+      {/* <Loader isOpen={isLoading} /> */}
       <List style={{ paddingTop: 0 }}>
         {friends.map((user) => (
           <>

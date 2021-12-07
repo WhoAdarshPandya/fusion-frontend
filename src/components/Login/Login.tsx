@@ -14,6 +14,7 @@ import { useState, useEffect } from "preact/hooks";
 import "./Login.css";
 import { useSnackbarHelper } from "../../hooks/";
 import { useNavigate } from "react-router-dom";
+import { Loader } from "..";
 // const Button = lazy(() => import("@material-ui/core/Button"));
 // const Paper = lazy(() => import("@material-ui/core/Paper"));
 // const TextField = lazy(() => import("@material-ui/core/TextField"));
@@ -28,12 +29,13 @@ export const Login = (): JSX.Element => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [open, setOpen] = useState(false);
-
+  const [isLoading, setIsLoading] = useState(false);
   const handleClose = () => {
     setOpen(false);
   };
 
   const submitLoginReq = async () => {
+    setIsLoading(true);
     const resp: any = await loginReq(email, password);
     console.log(resp);
     if (resp.success) {
@@ -44,9 +46,11 @@ export const Login = (): JSX.Element => {
       setIsLoggedIn(false);
       snackbarInjector("error", resp.msg, false, "5000");
     }
+    setIsLoading(false);
   };
   return (
     <Paper elevation={0} className="login-container">
+      <Loader isOpen={isLoading} />
       <div className="features" onClick={() => setOpen(true)}>
         <div className="feature-svg">
           <div className="sqaure">

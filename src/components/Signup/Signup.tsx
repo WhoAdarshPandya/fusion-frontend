@@ -120,7 +120,7 @@ export const Signup = (): JSX.Element => {
 
   return (
     <Paper elevation={0} className="login-container">
-      <Loader isOpen={isLoading} />
+      {/* <Loader isOpen={isLoading} /> */}
       <div className="features">
         <div className="feature-svg">
           <div className="sqaure reverse">

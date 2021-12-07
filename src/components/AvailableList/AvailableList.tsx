@@ -12,7 +12,7 @@ import {
 import { useEffect, useState } from "preact/hooks";
 import { Loader, Searchbar } from "..";
 import { useSnackbarHelper, useUser } from "../../hooks";
-import { getAllUsers, getSocket, getUuid, socket } from "../../utils";
+import { getAllUsers, getSocket, getToken, getUuid, socket } from "../../utils";
 import "./AvailableList.css";
 
 export const AvailableList = (): JSX.Element => {
@@ -89,6 +89,7 @@ export const AvailableList = (): JSX.Element => {
 
   const handleSendRequest = (user: any) => {
     socket.emit("sendReqEvent", {
+      token: getToken()!,
       id: user.request_id,
       req_by_id: id,
       req_id: getUuid(),
@@ -101,7 +102,7 @@ export const AvailableList = (): JSX.Element => {
   };
   return (
     <Paper elevation={0} className="available-container transition-class">
-      <Loader isOpen={isLoading} />
+      {/* <Loader isOpen={isLoading} /> */}
       <br />
       <div className="searchbar-container ">
         <Searchbar onSearch={handleSearch} />

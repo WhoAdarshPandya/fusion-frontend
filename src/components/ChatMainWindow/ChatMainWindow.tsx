@@ -8,7 +8,13 @@ import { Suspense, lazy } from "react";
 // import Picker from "emoji-picker-react";
 import { ChatBubble, ChatDetails, Loader } from "..";
 import "./ChatMainWindow.css";
-import { getAllChatsReq, getSocket, getUserData, getUserId } from "../../utils";
+import {
+  getAllChatsReq,
+  getSocket,
+  getToken,
+  getUserData,
+  getUserId,
+} from "../../utils";
 import Cookies from "js-cookie";
 
 const Picker = lazy(() => import("emoji-picker-react"));
@@ -116,6 +122,7 @@ export const ChatMainWindow = ({
     console.log(another_chat_id);
     if (msgText !== "") {
       getSocket().emit("new_msg", {
+        token: getToken()!,
         chat_id: Cookies.get("chat_id"),
         another_chat_id,
         msg: msgText,

@@ -17,6 +17,7 @@ import {
   deleteRequestReq,
   getAllRequests,
   getSocket,
+  getToken,
   getUserData,
   getUuid,
 } from "../../utils";
@@ -59,7 +60,7 @@ export const Request = () => {
     getUserFriendID,
   } = useUser();
   const getUserRequests = async () => {
-    const id = getUserRequestID();
+    // const id = getUserRequestID();
     const data = await getAllRequests(String(id));
     console.log(data);
     if (data.success) {
@@ -73,7 +74,7 @@ export const Request = () => {
       }
       // console.log(data.result.data.result, "succ");
     } else {
-      alert("error occured. [t102]");
+      alert("error occured. [t103]");
     }
     setIsLoading(false);
   };
@@ -82,9 +83,11 @@ export const Request = () => {
   const id = getUserRequestID();
   const user_id = getUserID();
   useEffect(() => {
-    (async () => {
-      await getUserRequests();
-    })();
+    if (id !== "" && id !== undefined && id !== null) {
+      (async () => {
+        await getUserRequests();
+      })();
+    }
     getSocket().on(`new_req${user_id}`, async ({ msg }) => {
       snackbarInjector("info", msg, true, "5000");
       setIsLoading(true);
@@ -94,7 +97,7 @@ export const Request = () => {
 
     getSocket().on(`accepted${user_id}`, async ({ msg }) => {
       snackbarInjector("info", msg, true, "5000");
-      getSocket().emit("updateFriends", {});
+      getSocket().emit("updateFriends", { token: getToken()! });
       // setIsLoading(true);
       // await getUserRequests();
       // setIsLoading(false);
@@ -175,6 +178,7 @@ export const Request = () => {
       console.log(data);
       // 2 events 1 for flist update in chat.,other for frriend
       getSocket().emit("accepted_req", {
+        token: getToken()!,
         frinal_friend_id,
         f_user_id,
         friendship_id,
@@ -193,7 +197,7 @@ export const Request = () => {
       );
       await deleteRequestReq(String(id), user._id);
       await getUserRequests();
-      getSocket().emit("updateFriends", {});
+      getSocket().emit("updateFriends", { token: getToken()! });
     } else {
       console.log(data);
       snackbarInjector("error", "something went wrong", true, "5000");
@@ -212,7 +216,7 @@ export const Request = () => {
   };
   return (
     <Paper elevation={0} className="request-container transition-class">
-      <Loader isOpen={isLoading} />
+      {/* <Loader isOpen={isLoading} /> */}
       <br />
       <div className="searchbar-container ">
         <Searchbar onSearch={handleSearch} />
