@@ -8,7 +8,12 @@ import {
   Typography,
 } from "@material-ui/core";
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
-import { CustomDialog, SettingLoader, SettingsList } from "..";
+import {
+  ChatBeforeAnimation,
+  CustomDialog,
+  SettingLoader,
+  SettingsList,
+} from "..";
 import { useUser } from "../../hooks";
 import { useEffect, useState } from "preact/hooks";
 import "./Settings.css";
@@ -117,8 +122,11 @@ export const Settings = (): JSX.Element => {
 
   return (
     <>
+      {/* temporary true, switch back to false */}
       {isLoading ? (
-        <SettingLoader />
+        <>
+          <SettingLoader />
+        </>
       ) : (
         <>
           <Paper elevation={0} className="settings-container transition-class">

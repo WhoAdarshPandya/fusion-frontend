@@ -10,7 +10,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import { useEffect, useState } from "preact/hooks";
-import { Loader, Searchbar } from "..";
+import { Loader, RequestAndDiscoverLoader, Searchbar } from "..";
 import { useSnackbarHelper, useUser } from "../../hooks";
 import {
   addFriendReq,
@@ -215,49 +215,55 @@ export const Request = () => {
     }
   };
   return (
-    <Paper elevation={0} className="request-container transition-class">
-      {/* <Loader isOpen={isLoading} /> */}
-      <br />
-      <div className="searchbar-container ">
-        <Searchbar onSearch={handleSearch} />
-      </div>
-      <div className="list-renderer">
-        <br />
-        <Typography variant="subtitle1" className="muted">
-          Friend Requests
-        </Typography>
-        <List>
-          {requests.map((user) => (
-            <ListItem
-              key={user.req_by_id}
-              className="remove-horizontal-padding"
-            >
-              <ListItemAvatar>
-                <Avatar src={user.user_profile} alt="user-photo" />
-              </ListItemAvatar>
-              <ListItemText primary={user.name} secondary={user.username} />
-              <ListItemSecondaryAction>
-                <Button
-                  color="primary"
-                  onClick={() => {
-                    handleAccept(user);
-                  }}
+    <>
+      {isLoading ? (
+        <RequestAndDiscoverLoader variant="request" />
+      ) : (
+        <Paper elevation={0} className="request-container transition-class">
+          {/* <Loader isOpen={isLoading} /> */}
+          <br />
+          <div className="searchbar-container ">
+            <Searchbar onSearch={handleSearch} />
+          </div>
+          <div className="list-renderer">
+            <br />
+            <Typography variant="subtitle1" className="muted">
+              Friend Requests
+            </Typography>
+            <List>
+              {requests.map((user) => (
+                <ListItem
+                  key={user.req_by_id}
+                  className="remove-horizontal-padding"
                 >
-                  accept
-                </Button>
-                <Button
-                  color="secondary"
-                  onClick={() => {
-                    handleRemove(user);
-                  }}
-                >
-                  remove
-                </Button>
-              </ListItemSecondaryAction>
-            </ListItem>
-          ))}
-        </List>
-      </div>
-    </Paper>
+                  <ListItemAvatar>
+                    <Avatar src={user.user_profile} alt="user-photo" />
+                  </ListItemAvatar>
+                  <ListItemText primary={user.name} secondary={user.username} />
+                  <ListItemSecondaryAction>
+                    <Button
+                      color="primary"
+                      onClick={() => {
+                        handleAccept(user);
+                      }}
+                    >
+                      accept
+                    </Button>
+                    <Button
+                      color="secondary"
+                      onClick={() => {
+                        handleRemove(user);
+                      }}
+                    >
+                      remove
+                    </Button>
+                  </ListItemSecondaryAction>
+                </ListItem>
+              ))}
+            </List>
+          </div>
+        </Paper>
+      )}
+    </>
   );
 };

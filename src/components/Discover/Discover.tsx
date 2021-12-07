@@ -10,8 +10,13 @@ export const Discover = (): JSX.Element => {
   const { currentTheme } = useDarkMode();
   const [index, setIndex] = useState(0);
 
-  const handleChange = (ev: any, value: number) => {
-    setIndex(value);
+  const handleChange = (ev: any, value: any) => {
+    if (value === 0) {
+      setIndex(0);
+    }
+    if (value === 1) {
+      setIndex(1);
+    }
   };
 
   return (
@@ -23,7 +28,6 @@ export const Discover = (): JSX.Element => {
         className={currentTheme === "light" ? "" : "dark-tabs"}
         orientation="horizontal"
         variant="fullWidth"
-        // fullWidth
         onChange={handleChange}
         style={styles.tabs}
       >

@@ -1,7 +1,7 @@
 import { Divider, Paper, Switch } from "@material-ui/core";
 import Cookies from "js-cookie";
 import { useState } from "react";
-import { ChatList, ChatInfoBar, ChatMainWindow } from "..";
+import { ChatList, ChatInfoBar, ChatMainWindow, ChatBeforeAnimation } from "..";
 import { useUser } from "../../hooks";
 import { getAllChatsReq } from "../../utils";
 import "./Chat.css";
@@ -50,17 +50,23 @@ export const Chat = (): JSX.Element => {
           <ChatList onChatClick={handleChatClick} />
         </div>
         <div className="chat-window">
-          <ChatInfoBar
-            anonymousChat={anonymousMode}
-            onAnonymousClick={toggleAnonymousMode}
-            user={currentFriendForChat}
-          />
-          <ChatMainWindow
-            setMessages={handleSetMsgs}
-            messages={messages}
-            anonymousMode={anonymousMode}
-            user={currentFriendForChat}
-          />
+          {currentFriendForChat.user_id === "" ? (
+            <ChatBeforeAnimation />
+          ) : (
+            <>
+              <ChatInfoBar
+                anonymousChat={anonymousMode}
+                onAnonymousClick={toggleAnonymousMode}
+                user={currentFriendForChat}
+              />
+              <ChatMainWindow
+                setMessages={handleSetMsgs}
+                messages={messages}
+                anonymousMode={anonymousMode}
+                user={currentFriendForChat}
+              />
+            </>
+          )}
         </div>
       </div>
     </Paper>
