@@ -7,6 +7,7 @@ import {
   SET_PROFILE_URL,
   SET_EMAIL,
   SET_USERNAME,
+  RESET_USER,
 } from ".";
 import { UserContextReducerType } from "./UserContext";
 
@@ -44,6 +45,23 @@ export let reducer: UserContextReducerType = (state, action) => {
       return { ...state, email: action.payload.email };
     case SET_USERNAME:
       return { ...state, user_name: action.payload.user_name };
+    case RESET_USER:
+      return {
+        chat_id: "",
+        dnd: false,
+        email: "",
+        joined_at: "",
+        friend_id: "",
+        name: "",
+        user_id: "",
+        user_name: "",
+        profile_url: "",
+        notification: false,
+        password: "",
+        request_id: "",
+        theme: "",
+        todo_id: "",
+      };
     default:
       return state;
   }

@@ -3,6 +3,7 @@ import { AuthContext, LOGOUT, LOGIN } from "../contexts/AuthContext";
 import { setIsLoggedIn, setToken, setUserId } from "../utils";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import { UserContext } from "../contexts/UserContext";
 
 export const useAuth = (): {
   isLoggedIn: boolean;
@@ -10,6 +11,7 @@ export const useAuth = (): {
   makeUserLogout: () => void;
 } => {
   const { state, dispatch } = useContext(AuthContext);
+  const { dispatch: userDispatcher } = useContext(UserContext);
   const isLoggedIn = state.isLoggedIn;
   const navigate = useNavigate();
 
@@ -22,6 +24,7 @@ export const useAuth = (): {
   };
 
   const makeUserLogout = () => {
+    userDispatcher({ type: "RESET_USER", payload: {} });
     setToken("");
     setIsLoggedIn(false);
     Cookies.set("chat_id", "");

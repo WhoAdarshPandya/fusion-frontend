@@ -35,16 +35,20 @@ export const Login = (): JSX.Element => {
   };
 
   const submitLoginReq = async () => {
+    console.log("clicked");
+    const resp = await loginReq(email, password);
+    console.log(resp);
     setIsLoading(true);
-    const resp: any = await loginReq(email, password);
     console.log(resp);
     if (resp.success) {
-      makeUserLogin(resp.token, resp.userData.user_id);
-      snackbarInjector("success", resp.msg, false, "5000");
+      console.log("ok");
+      makeUserLogin(resp.result.token, resp.result.userData.user_id);
+      snackbarInjector("success", resp.result.msg, false, "5000");
     } else {
+      console.log("nok");
       setToken("");
       setIsLoggedIn(false);
-      snackbarInjector("error", resp.msg, false, "5000");
+      snackbarInjector("error", resp.result.msg, false, "5000");
     }
     setIsLoading(false);
   };
@@ -103,10 +107,7 @@ export const Login = (): JSX.Element => {
           />
 
           <Button
-            onClick={() => {
-              submitLoginReq();
-              // makeUserLogin();
-            }}
+            onClick={submitLoginReq}
             variant="contained"
             color="primary"
             className="text-feilds"

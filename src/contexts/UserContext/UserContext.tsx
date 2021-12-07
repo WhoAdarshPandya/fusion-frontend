@@ -19,7 +19,8 @@ export interface UserAction {
     | "SET_PROFILE_URL"
     | "SET_NAME"
     | "SET_EMAIL"
-    | "SET_USERNAME";
+    | "SET_USERNAME"
+    | "RESET_USER";
   payload: any;
 }
 

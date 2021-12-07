@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { getBaseUrl, getToken, getUserId, sanitizer } from ".";
 
 // const axiosrequest1 = axios.get("https://httpbin.org/get");
@@ -86,16 +86,22 @@ export const imageUploader = async (
   return resp;
 };
 
-export const loginReq = async (email: string, password: string) => {
-  const resp = await axios
+export const loginReq = async (
+  email: string,
+  password: string
+): Promise<RequestHelperResponse> => {
+  // let resp: RequestHelperResponse = {success:false}
+  let data: RequestHelperResponse = await axios
     .post(
       `${getBaseUrl()}/api/v1/login`,
       { type: "email", email, password },
       { headers: { "Content-Type": "application/json" } }
     )
-    .then((res) => res.data)
-    .catch((err) => err);
-  return resp;
+    .then((res) => {
+      return { success: true, err: null, result: res.data };
+    })
+    .catch((err) => ({ err, success: false }));
+  return data;
 };
 
 export const getUserData = async (

@@ -7,3 +7,4 @@ export const SET_EMAIL = "SET_EMAIL";
 export const SET_NOTIFICATION = "SET_NOTIFICATION";
 export const SET_DND = "SET_DND";
 export const SET_PROFILE_URL = "SET_PROFILE_URL";
+export const RESET_USER = "RESET_USER";
