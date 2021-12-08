@@ -44,8 +44,7 @@ export const ChatMainWindow = ({
   // ]);
   const { snackbarInjector } = useSnackbarHelper();
   // ⚛ experimental
-  const { getUserNotificationStatus } = useUser();
-  const nft = getUserNotificationStatus();
+  const { getUserNotificationStatus, getUserName } = useUser();
   const messageEl = useRef<HTMLDivElement>(null);
   messageEl.current?.scrollIntoView({ behavior: "smooth" });
 
@@ -62,7 +61,7 @@ export const ChatMainWindow = ({
   //     alert("error occured");
   //   }
   // };
-
+  const name = getUserName();
   useEffect(() => {
     scrollToBottom();
   }, []);
@@ -80,15 +79,16 @@ export const ChatMainWindow = ({
     // })();
     getSocket().on(
       `new_incoming_msg${getUserId()}`,
-      ({ msg, sender_id, chat_id, friendship_id }) => {
+      ({ msg, sender_id, chat_id, friendship_id, name }) => {
         // getChatsU();
         setMessages({ msg, sender_id, chat_id, friendship_id });
         scrollToBottom();
+        // const nft = getUserNotificationStatus() as boolean;
         // console.log(messages);
         // console.log(msg);
-        let nft = getUserNotificationStatus();
-        console.log(nft);
-        nft && snackbarInjector("info", msg, true, "5000");
+        // console.log(nft);
+        // nft === false &&
+        // snackbarInjector("info", `${name} : ${msg}`, true, "5000");
       }
     );
 
@@ -132,6 +132,7 @@ export const ChatMainWindow = ({
         date: "",
         time: "",
         anonymousMode,
+        name,
       });
       // setMessages({ msg, sender_id, chat_id });
 

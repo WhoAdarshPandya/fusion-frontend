@@ -27,7 +27,7 @@ export interface User {
   profile_url: string;
   joined_at: string;
   dnd: Boolean;
-  notification: Boolean;
+  notification: boolean;
 }
 
 export interface QuoteResponse {
@@ -90,6 +90,7 @@ export const loginReq = async (
   email: string,
   password: string
 ): Promise<RequestHelperResponse> => {
+  console.log(email, password);
   // let resp: RequestHelperResponse = {success:false}
   let data: RequestHelperResponse = await axios
     .post(
@@ -98,9 +99,14 @@ export const loginReq = async (
       { headers: { "Content-Type": "application/json" } }
     )
     .then((res) => {
+      console.log(res);
       return { success: true, err: null, result: res.data };
     })
-    .catch((err) => ({ err, success: false }));
+    .catch((err) => {
+      console.log("err", err);
+      return { err, success: false };
+    });
+  console.log(data);
   return data;
 };
 

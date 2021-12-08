@@ -36,21 +36,27 @@ export const Login = (): JSX.Element => {
 
   const submitLoginReq = async () => {
     console.log("clicked");
-    const resp = await loginReq(email, password);
-    console.log(resp);
     setIsLoading(true);
-    console.log(resp);
-    if (resp.success) {
-      console.log("ok");
-      makeUserLogin(resp.result.token, resp.result.userData.user_id);
-      snackbarInjector("success", resp.result.msg, false, "5000");
-    } else {
-      console.log("nok");
-      setToken("");
-      setIsLoggedIn(false);
-      snackbarInjector("error", resp.result.msg, false, "5000");
+    if (email !== "" && password !== "") {
+      console.log("n");
+      const resp = await loginReq(email, password);
+      console.log(resp);
+      if (resp.success && resp.result.success) {
+        console.log("ok");
+        console.log(resp);
+        makeUserLogin(resp.result.token, resp.result.userData.user_id);
+        snackbarInjector("success", resp.result.msg, false, "5000");
+      } else {
+        console.log("nok");
+        setToken("");
+        setIsLoggedIn(false);
+        snackbarInjector("error", resp.result.msg, false, "5000");
+      }
     }
     setIsLoading(false);
+    // console.log(resp);
+
+    // setIsLoading(false);
   };
   return (
     <Paper elevation={0} className="login-container">

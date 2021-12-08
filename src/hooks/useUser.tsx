@@ -27,7 +27,7 @@ export const useUser = (): {
   getUserRequestID: () => String;
   getUserTodoID: () => string;
   getUserDndStatus: () => Boolean;
-  getUserNotificationStatus: () => Boolean;
+  getUserNotificationStatus: () => boolean;
   getUserJoinedAt: () => string;
   getUserEmail: () => string;
   getUserFriendID: () => string;
@@ -73,7 +73,7 @@ export const useUser = (): {
   const getUserRequestID = (): String => state.request_id;
   const getUserTodoID = (): string => state.todo_id;
   const getUserDndStatus = (): Boolean => state.dnd;
-  const getUserNotificationStatus = (): Boolean => state.notification;
+  const getUserNotificationStatus = (): boolean => state.notification;
   const getUserJoinedAt = (): string => state.joined_at;
   const getUserEmail = (): string => state.email;
   const getUserFriendID = (): string => state.friend_id;
