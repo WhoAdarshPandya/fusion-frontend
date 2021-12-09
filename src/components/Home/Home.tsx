@@ -105,7 +105,7 @@ export const Home = (): JSX.Element => {
   return (
     <Paper elevation={0} className="slider-container">
       <SwipeableViews index={index} onChangeIndex={handleChange}>
-        <div style={styles.slide} className="testt">
+        <div className="testt slide">
           <Workspace />
         </div>
         <div style={styles.slide}>

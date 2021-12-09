@@ -30,6 +30,7 @@ export const ChatList = ({ onChatClick }: ChatlistProps): JSX.Element => {
       user_name: "",
       user_profile: "",
     },
+    {},
   ]);
   const [isLoading, setIsLoading] = useState(true);
   const { getUserFriendID } = useUser();
@@ -37,7 +38,7 @@ export const ChatList = ({ onChatClick }: ChatlistProps): JSX.Element => {
   const getUserFriends = async () => {
     // const id = getUserFriendID();
     const data = await getAllFriends(String(id));
-    console.log(data);
+    console.log("f_data", data);
     if (data.success) {
       if (data.result.data) {
         console.log(data);
@@ -74,26 +75,33 @@ export const ChatList = ({ onChatClick }: ChatlistProps): JSX.Element => {
       <List style={{ paddingTop: 0 }}>
         {friends.map((user) => (
           <>
-            <ListItem
-              selected={true}
-              button
-              onClick={() => {
-                handleUserForChat(user);
-              }}
-              // key={user.user_id}
-              className={`${
-                true ? "selected" : ""
-              } remove-horizontal-padding list-padding`}
-            >
-              <ListItemAvatar>
-                <Avatar src={user.user_profile} alt="user-photo" />
-              </ListItemAvatar>
-              <ListItemText primary={user.name} secondary={user.user_name} />
-              {/* <ListItemSecondaryAction>
+            {user._id !== "" && (
+              <>
+                <ListItem
+                  selected={true}
+                  button
+                  onClick={() => {
+                    handleUserForChat(user);
+                  }}
+                  // key={user.user_id}
+                  className={`${
+                    true ? "selected" : ""
+                  } remove-horizontal-padding list-padding`}
+                >
+                  <ListItemAvatar>
+                    <Avatar src={user.user_profile} alt="user-photo" />
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={user.name}
+                    secondary={user.user_name}
+                  />
+                  {/* <ListItemSecondaryAction>
                 <Badge color="primary" badgeContent={"9+"} />
               </ListItemSecondaryAction> */}
-            </ListItem>
-            <Divider />
+                </ListItem>
+                <Divider />
+              </>
+            )}
           </>
         ))}
       </List>

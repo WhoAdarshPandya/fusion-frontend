@@ -122,7 +122,11 @@ export const Login = (): JSX.Element => {
           </Button>
 
           <Link to="/signup" className="links">
-            <Typography color="textSecondary" variant="subtitle1">
+            <Typography
+              align="center"
+              color="textSecondary"
+              variant="subtitle1"
+            >
               not a user? signup here
             </Typography>
           </Link>

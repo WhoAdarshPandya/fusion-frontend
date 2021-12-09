@@ -150,6 +150,7 @@ export const Signup = (): JSX.Element => {
           {isNext ? (
             <>
               <Badge
+                className="resp-badge"
                 overlap="circular"
                 anchorOrigin={{
                   vertical: "bottom",
@@ -207,7 +208,11 @@ export const Signup = (): JSX.Element => {
                 signup
               </Button>
               <Link to="/login" className="links">
-                <Typography color="textSecondary" variant="subtitle1">
+                <Typography
+                  align="center"
+                  color="textSecondary"
+                  variant="subtitle1"
+                >
                   already a user? login from here
                 </Typography>
               </Link>

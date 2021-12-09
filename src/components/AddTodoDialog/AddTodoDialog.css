@@ -50,3 +50,10 @@
 .clr-four-light {
   background: #e0e474 !important;
 }
+
+@media (max-width: 700px) {
+  .full-width {
+    min-width: 65% !important;
+    max-width: 65% !important;
+  }
+}

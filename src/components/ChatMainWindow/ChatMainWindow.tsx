@@ -46,7 +46,7 @@ export const ChatMainWindow = ({
   // ⚛ experimental
   const { getUserNotificationStatus, getUserName } = useUser();
   const messageEl = useRef<HTMLDivElement>(null);
-  messageEl.current?.scrollIntoView({ behavior: "smooth" });
+  // messageEl.current?.scrollIntoView({ behavior: "smooth" });
 
   // const getChatsU = async () => {
   //   const data = await getAllChatsReq(Cookies.get("chat_id")!);
@@ -98,10 +98,15 @@ export const ChatMainWindow = ({
     });
   }, []);
 
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
   // ⚛ experimental
   const scrollToBottom = () => {
+    console.log("called");
     messageEl.current?.scrollIntoView({ behavior: "smooth" });
   };
+
   const handleClose = () => {
     setAnchorEl(null);
     setEmojiPopOver(false);
@@ -181,24 +186,31 @@ export const ChatMainWindow = ({
               <ChatBubble isTyping={true} from="me">
                 {null}
               </ChatBubble>
+              {/* <div className="bottom-ref" ref={messageEl}></div> */}
+            </>
+          )}
+          {user !== null && user !== undefined && (
+            <>
+              {messages.map(
+                (msg: any) =>
+                  msg.friendship_id === user.friendship_id && (
+                    <>
+                      <ChatBubble
+                        from={msg.sender_id === getUserId() ? "me" : "you"}
+                      >
+                        {msg.msg}
+                      </ChatBubble>
+                      <br />
+                      <br />
+                      {/* <div className="bottom-ref" ref={messageEl}></div> */}
+                    </>
+                  )
+              )}
+              <br />
+              <br />
               <div className="bottom-ref" ref={messageEl}></div>
             </>
           )}
-          {user !== null &&
-            user !== undefined &&
-            messages.map(
-              (msg: any) =>
-                msg.friendship_id === user.friendship_id && (
-                  <>
-                    <ChatBubble
-                      from={msg.sender_id === getUserId() ? "me" : "you"}
-                    >
-                      {msg.msg}
-                    </ChatBubble>
-                    <div className="bottom-ref" ref={messageEl}></div>
-                  </>
-                )
-            )}
           {/* ⚛experimental */}
         </div>
         <div className="msg-bar">
